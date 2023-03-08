@@ -3318,6 +3318,21 @@ int32_t lsm6dso16is_ispu_get_boot_status(stmdev_ctx_t *ctx,
   return ret;
 }
 
+static int32_t lsm6dso16is_ispu_sel_memory_addr(stmdev_ctx_t *ctx, uint16_t mem_addr)
+{
+  uint8_t mem_addr_l, mem_addr_h;
+  int32_t ret = 0;
+
+  mem_addr_l = (uint8_t)(mem_addr & 0xFFU);
+  mem_addr_h = (uint8_t)(mem_addr / 256U);
+  ret += lsm6dso16is_write_reg(ctx, LSM6DSO16IS_ISPU_MEM_ADDR1,
+                            (uint8_t *)&mem_addr_h, 1);
+  ret += lsm6dso16is_write_reg(ctx, LSM6DSO16IS_ISPU_MEM_ADDR0,
+                            (uint8_t *)&mem_addr_l, 1);
+
+  return ret;
+}
+
 /**
   * @brief  ISPU write memory
   *
@@ -3334,52 +3349,45 @@ int32_t lsm6dso16is_ispu_write_memory(stmdev_ctx_t *ctx,
                                       uint16_t mem_addr, uint8_t *mem_data, uint16_t len)
 {
   lsm6dso16is_ispu_mem_sel_t ispu_mem_sel;
-  uint8_t mem_addr_l, mem_addr_h;
   int32_t ret;
   uint16_t i;
 
   ret = lsm6dso16is_mem_bank_set(ctx, LSM6DSO16IS_ISPU_MEM_BANK);
   if (ret == 0)
   {
-    /* select memory to be read */
-    ispu_mem_sel.read_mem_en = 1;
+    /* select memory to be written */
+    ispu_mem_sel.read_mem_en = 0;
     ispu_mem_sel.mem_sel = (uint8_t)mem_sel;
     ret = lsm6dso16is_write_reg(ctx, LSM6DSO16IS_ISPU_MEM_SEL, (uint8_t *)&ispu_mem_sel, 1);
-  }
 
-  if (ret == 0)
-  {
-    /* select memory address */
-    mem_addr_l = (uint8_t)(mem_addr & 0xFFU);
-    mem_addr_h = (uint8_t)(mem_addr / 256U);
-    ret += lsm6dso16is_write_reg(ctx, LSM6DSO16IS_ISPU_MEM_ADDR0,
-                                 (uint8_t *)&mem_addr_l,
-                                 1);
-    ret += lsm6dso16is_write_reg(ctx, LSM6DSO16IS_ISPU_MEM_ADDR1,
-                                 (uint8_t *)&mem_addr_h,
-                                 1);
-  }
-
-  if (ret == 0)
-  {
-    for (i = 0; i < len; i++)
+    if (mem_sel == LSM6DSO16IS_ISPU_PROGRAM_RAM_MEMORY)
     {
-      /* re-select memory address when crossing certain boundaries */
-      if ((mem_sel == LSM6DSO16IS_ISPU_PROGRAM_RAM_MEMORY) &&
-          ((mem_addr + len == 0x2000U) || (mem_addr + len == 0x4000U) || (mem_addr + len == 0x6000U)))
-      {
-        mem_addr_l = (uint8_t)((mem_addr + i) & 0xFFU);
-        mem_addr_h = (uint8_t)((mem_addr + i) / 256U);
-        ret += lsm6dso16is_write_reg(ctx, LSM6DSO16IS_ISPU_MEM_ADDR0,
-                                     (uint8_t *)&mem_addr_l,
-                                     1);
-        ret += lsm6dso16is_write_reg(ctx, LSM6DSO16IS_ISPU_MEM_ADDR1,
-                                     (uint8_t *)&mem_addr_h,
-                                     1);
-      }
+      uint16_t addr_s[4] = {0U, 0U, 0U, 0U};
+      uint16_t len_s[4] = {0U, 0U, 0U, 0U};
+      uint8_t j = 0;
+      uint16_t k;
 
-      /* write the data */
-      ret += lsm6dso16is_write_reg(ctx, LSM6DSO16IS_ISPU_MEM_DATA, &mem_data[i], 1);
+      addr_s[0] = mem_addr;
+      for (i = 0, k = 0; i < len; i++, k++)
+      {
+        if ((mem_addr + i == 0x2000U) || (mem_addr + i == 0x4000U) || (mem_addr + i == 0x6000U))
+        {
+          len_s[j++] = k;
+          addr_s[j] = mem_addr + i;
+          k = 0;
+        }
+      }
+      len_s[j++] = k;
+
+      for (i = 0, k = 0; i < j; k+=len_s[i], i++)
+      {
+        ret += lsm6dso16is_ispu_sel_memory_addr(ctx, addr_s[i]);
+        ret += lsm6dso16is_write_reg(ctx, LSM6DSO16IS_ISPU_MEM_DATA, &mem_data[k], len_s[i]);
+      }
+    } else {
+      /* select memory address */
+      ret += lsm6dso16is_ispu_sel_memory_addr(ctx, mem_addr);
+      ret += lsm6dso16is_write_reg(ctx, LSM6DSO16IS_ISPU_MEM_DATA, &mem_data[0], len);
     }
   }
 
@@ -3404,9 +3412,8 @@ int32_t lsm6dso16is_ispu_read_memory(stmdev_ctx_t *ctx,
                                      uint16_t mem_addr, uint8_t *mem_data, uint16_t len)
 {
   lsm6dso16is_ispu_mem_sel_t ispu_mem_sel;
-  uint8_t mem_addr_l, mem_addr_h;
   int32_t ret;
-  uint32_t i;
+  uint8_t dummy;
 
   ret = lsm6dso16is_mem_bank_set(ctx, LSM6DSO16IS_ISPU_MEM_BANK);
   if (ret == 0)
@@ -3415,42 +3422,12 @@ int32_t lsm6dso16is_ispu_read_memory(stmdev_ctx_t *ctx,
     ispu_mem_sel.read_mem_en = 1;
     ispu_mem_sel.mem_sel = (uint8_t)mem_sel;
     ret = lsm6dso16is_write_reg(ctx, LSM6DSO16IS_ISPU_MEM_SEL, (uint8_t *)&ispu_mem_sel, 1);
-  }
 
-  if (ret == 0)
-  {
     /* select memory address */
-    mem_addr_l = (uint8_t)(mem_addr & 0xFFU);
-    mem_addr_h = (uint8_t)(mem_addr / 256U);
-    ret += lsm6dso16is_write_reg(ctx, LSM6DSO16IS_ISPU_MEM_ADDR0,
-                                 (uint8_t *)&mem_addr_l,
-                                 1);
-    ret += lsm6dso16is_write_reg(ctx, LSM6DSO16IS_ISPU_MEM_ADDR1,
-                                 (uint8_t *)&mem_addr_h,
-                                 1);
-  }
+    ret += lsm6dso16is_ispu_sel_memory_addr(ctx, mem_addr);
+    ret += lsm6dso16is_read_reg(ctx, LSM6DSO16IS_ISPU_MEM_DATA, &dummy, 1);
 
-  if (ret == 0)
-  {
-    for (i = 0; i < len; i++)
-    {
-      /* re-select memory address when crossing certain boundaries */
-      if ((mem_sel == LSM6DSO16IS_ISPU_PROGRAM_RAM_MEMORY) &&
-          ((mem_addr + len == 0x2000U) || (mem_addr + len == 0x4000U) || (mem_addr + len == 0x6000U)))
-      {
-        mem_addr_l = (uint8_t)((mem_addr + i) & 0xFFU);
-        mem_addr_h = (uint8_t)((mem_addr + i) / 256U);
-        ret += lsm6dso16is_write_reg(ctx, LSM6DSO16IS_ISPU_MEM_ADDR0,
-                                     (uint8_t *)&mem_addr_l,
-                                     1);
-        ret += lsm6dso16is_write_reg(ctx, LSM6DSO16IS_ISPU_MEM_ADDR1,
-                                     (uint8_t *)&mem_addr_h,
-                                     1);
-      }
-
-      /* read the data */
-      ret += lsm6dso16is_read_reg(ctx, LSM6DSO16IS_ISPU_MEM_DATA, &mem_data[i], 1);
-    }
+    ret += lsm6dso16is_read_reg(ctx, LSM6DSO16IS_ISPU_MEM_DATA, &mem_data[0], len);
   }
 
   ret += lsm6dso16is_mem_bank_set(ctx, LSM6DSO16IS_MAIN_MEM_BANK);
