@@ -332,11 +332,10 @@ int32_t lsm6dso16is_device_id_get(stmdev_ctx_t *ctx, uint8_t *val)
   * @brief  Software reset. Restore the default values in user registers.[set]
   *
   * @param  ctx    Read / write interface definitions.(ptr)
-  * @param  val    Change the values of sw_reset in reg CTRL_REG1.
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm6dso16is_reset_set(stmdev_ctx_t *ctx, uint8_t val)
+int32_t lsm6dso16is_software_reset(stmdev_ctx_t *ctx)
 {
   lsm6dso16is_ctrl3_c_t ctrl3_c;
   int32_t ret;
@@ -345,28 +344,16 @@ int32_t lsm6dso16is_reset_set(stmdev_ctx_t *ctx, uint8_t val)
 
   if (ret == 0)
   {
-    ctrl3_c.sw_reset = val;
+    ret += lsm6dso16is_xl_data_rate_set(ctx, LSM6DSO16IS_XL_ODR_OFF);
+    ret += lsm6dso16is_gy_data_rate_set(ctx, LSM6DSO16IS_GY_ODR_OFF);
+
+    ctrl3_c.sw_reset = PROPERTY_ENABLE;
     ret = lsm6dso16is_write_reg(ctx, LSM6DSO16IS_CTRL3_C, (uint8_t *)&ctrl3_c, 1);
+
+    do {
+      ret += lsm6dso16is_read_reg(ctx, LSM6DSO16IS_CTRL3_C, (uint8_t *)&ctrl3_c, 1);
+    } while (ret == 0 && ctrl3_c.sw_reset == PROPERTY_ENABLE);
   }
-
-  return ret;
-}
-
-/**
-  * @brief  Software reset. Restore the default values in user registers.[get]
-  *
-  * @param  ctx    Read / write interface definitions.(ptr)
-  * @param  val    Get the values of sw_reset in reg CTRL_REG1.(ptr)
-  * @retval        Interface status (MANDATORY: return 0 -> no Error).
-  *
-  */
-int32_t lsm6dso16is_reset_get(stmdev_ctx_t *ctx, uint8_t *val)
-{
-  lsm6dso16is_ctrl3_c_t ctrl3_c;
-  int32_t ret;
-
-  ret = lsm6dso16is_read_reg(ctx, LSM6DSO16IS_CTRL3_C, (uint8_t *)&ctrl3_c, 1);
-  *val = ctrl3_c.sw_reset;
 
   return ret;
 }

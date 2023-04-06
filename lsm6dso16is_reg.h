@@ -2358,8 +2358,7 @@ int32_t lsm6dso16is_data_ready_mode_get(stmdev_ctx_t *ctx,
 int32_t lsm6dso16is_device_id_set(stmdev_ctx_t *ctx, uint8_t val);
 int32_t lsm6dso16is_device_id_get(stmdev_ctx_t *ctx, uint8_t *val);
 
-int32_t lsm6dso16is_reset_set(stmdev_ctx_t *ctx, uint8_t val);
-int32_t lsm6dso16is_reset_get(stmdev_ctx_t *ctx, uint8_t *val);
+int32_t lsm6dso16is_software_reset(stmdev_ctx_t *ctx);
 
 int32_t lsm6dso16is_boot_set(stmdev_ctx_t *ctx, uint8_t val);
 int32_t lsm6dso16is_boot_get(stmdev_ctx_t *ctx, uint8_t *val);
