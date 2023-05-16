@@ -1948,8 +1948,7 @@ int32_t lsm6dso16is_pin_polarity_get(stmdev_ctx_t *ctx,
   * @retval          interface status (MANDATORY: return 0 -> no Error)
   *
   */
-int32_t lsm6dso16is_sh_read_data_raw_get(stmdev_ctx_t *ctx,
-                                         lsm6dso16is_emb_sh_read_t *val,
+int32_t lsm6dso16is_sh_read_data_raw_get(stmdev_ctx_t *ctx, uint8_t *val,
                                          uint8_t len)
 {
   int32_t ret;
@@ -1957,8 +1956,7 @@ int32_t lsm6dso16is_sh_read_data_raw_get(stmdev_ctx_t *ctx,
   ret = lsm6dso16is_mem_bank_set(ctx, LSM6DSO16IS_SENSOR_HUB_MEM_BANK);
   if (ret == 0)
   {
-    ret = lsm6dso16is_read_reg(ctx, LSM6DSO16IS_SENSOR_HUB_1, (uint8_t *) val,
-                               len);
+    ret = lsm6dso16is_read_reg(ctx, LSM6DSO16IS_SENSOR_HUB_1, val, len);
   }
   if (ret == 0)
   {
