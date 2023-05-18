@@ -2693,6 +2693,9 @@ int32_t lsm6dso16is_sh_slv2_cfg_read(stmdev_ctx_t *ctx,
 int32_t lsm6dso16is_sh_slv3_cfg_read(stmdev_ctx_t *ctx,
                                      lsm6dso16is_sh_cfg_read_t *val);
 
+int32_t lsm6dso16is_sh_status_get(stmdev_ctx_t *ctx,
+                                  lsm6dso16is_status_master_t *val);
+
 int32_t lsm6dso16is_ispu_reset_set(stmdev_ctx_t *ctx, uint8_t val);
 int32_t lsm6dso16is_ispu_reset_get(stmdev_ctx_t *ctx, uint8_t *val);
 
