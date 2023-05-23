@@ -45,8 +45,8 @@ This directory contains the LSM6DSO16IS component drivers.
 
 </div>
 
-<input type="checkbox" id="collapse-section1" checked aria-hidden="true">
-<label for="collapse-section1" aria-hidden="true">V2.0.0 / 6-April-2023</label>
+<input type="checkbox" id="collapse-section2" aria-hidden="true">
+<label for="collapse-section2" aria-hidden="true">V2.0.0 / 6-April-2023</label>
 <div>
 
 ## Main changes
@@ -55,6 +55,27 @@ This directory contains the LSM6DSO16IS component drivers.
 
 - Fix software_reset method
 - Fix ISPU memory read/write APIs
+
+##
+
+</div>
+
+<input type="checkbox" id="collapse-section3" checked aria-hidden="true">
+<label for="collapse-section3" aria-hidden="true">V2.1.0 / 23-May-2023</label>
+<div>
+
+## Main changes
+
+### First release
+
+- Use a single lsm6dsv_sh_slv_cfg_read() API for all targets
+- fix shub register names (SLAVE -> SLV)
+- add sh_status_get() API
+- change sh_read_data_raw_get() API signature
+- Change lsm6dso16is_mem_bank_set() API
+- review read/write reg ret value checks
+- Fix MISRA errors
+
 
 ##
 
