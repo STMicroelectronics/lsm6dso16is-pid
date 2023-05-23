@@ -1029,7 +1029,7 @@ typedef struct
 #endif /* DRV_BYTE_ORDER */
 } lsm6dso16is_slv0_subadd_t;
 
-#define LSM6DSO16IS_SLAVE0_CONFIG                   0x17U
+#define LSM6DSO16IS_SLV0_CONFIG                   0x17U
 typedef struct
 {
 #if DRV_BYTE_ORDER == DRV_LITTLE_ENDIAN
@@ -1065,7 +1065,7 @@ typedef struct
 #endif /* DRV_BYTE_ORDER */
 } lsm6dso16is_slv1_subadd_t;
 
-#define LSM6DSO16IS_SLAVE1_CONFIG                   0x1AU
+#define LSM6DSO16IS_SLV1_CONFIG                   0x1AU
 typedef struct
 {
 #if DRV_BYTE_ORDER == DRV_LITTLE_ENDIAN
@@ -1099,7 +1099,7 @@ typedef struct
 #endif /* DRV_BYTE_ORDER */
 } lsm6dso16is_slv2_subadd_t;
 
-#define LSM6DSO16IS_SLAVE2_CONFIG                   0x1DU
+#define LSM6DSO16IS_SLV2_CONFIG                   0x1DU
 typedef struct
 {
 #if DRV_BYTE_ORDER == DRV_LITTLE_ENDIAN
@@ -1133,7 +1133,7 @@ typedef struct
 #endif /* DRV_BYTE_ORDER */
 } lsm6dso16is_slv3_subadd_t;
 
-#define LSM6DSO16IS_SLAVE3_CONFIG                   0x20U
+#define LSM6DSO16IS_SLV3_CONFIG                   0x20U
 typedef struct
 {
 #if DRV_BYTE_ORDER == DRV_LITTLE_ENDIAN

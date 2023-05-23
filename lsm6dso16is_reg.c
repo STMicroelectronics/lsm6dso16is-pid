@@ -2512,13 +2512,13 @@ int32_t lsm6dso16is_sh_data_rate_set(stmdev_ctx_t *ctx,
   ret = lsm6dso16is_mem_bank_set(ctx, LSM6DSO16IS_SENSOR_HUB_MEM_BANK);
   if (ret == 0)
   {
-    ret = lsm6dso16is_read_reg(ctx, LSM6DSO16IS_SLAVE0_CONFIG, (uint8_t *)&slv0_config, 1);
+    ret = lsm6dso16is_read_reg(ctx, LSM6DSO16IS_SLV0_CONFIG, (uint8_t *)&slv0_config, 1);
   }
 
   if (ret == 0)
   {
     slv0_config.shub_odr = (uint8_t)val & 0x07U;
-    ret = lsm6dso16is_write_reg(ctx, LSM6DSO16IS_SLAVE0_CONFIG, (uint8_t *)&slv0_config, 1);
+    ret = lsm6dso16is_write_reg(ctx, LSM6DSO16IS_SLV0_CONFIG, (uint8_t *)&slv0_config, 1);
   }
   if (ret == 0)
   {
@@ -2545,7 +2545,7 @@ int32_t lsm6dso16is_sh_data_rate_get(stmdev_ctx_t *ctx,
   ret = lsm6dso16is_mem_bank_set(ctx, LSM6DSO16IS_SENSOR_HUB_MEM_BANK);
   if (ret == 0)
   {
-    ret = lsm6dso16is_read_reg(ctx, LSM6DSO16IS_SLAVE0_CONFIG, (uint8_t *)&slv0_config, 1);
+    ret = lsm6dso16is_read_reg(ctx, LSM6DSO16IS_SLV0_CONFIG, (uint8_t *)&slv0_config, 1);
   }
   if (ret == 0)
   {
@@ -2612,14 +2612,14 @@ int32_t lsm6dso16is_sh_slv0_cfg_read(stmdev_ctx_t *ctx,
 
   if (ret == 0)
   {
-    ret = lsm6dso16is_read_reg(ctx, LSM6DSO16IS_SLAVE0_CONFIG,
+    ret = lsm6dso16is_read_reg(ctx, LSM6DSO16IS_SLV0_CONFIG,
                                (uint8_t *)&slv0_config, 1);
   }
 
   if (ret == 0)
   {
     slv0_config.slave0_numop = val->slv_len;
-    ret = lsm6dso16is_write_reg(ctx, LSM6DSO16IS_SLAVE0_CONFIG,
+    ret = lsm6dso16is_write_reg(ctx, LSM6DSO16IS_SLV0_CONFIG,
                                 (uint8_t *)&slv0_config, 1);
   }
 
@@ -2666,14 +2666,14 @@ int32_t lsm6dso16is_sh_slv1_cfg_read(stmdev_ctx_t *ctx,
 
   if (ret == 0)
   {
-    ret = lsm6dso16is_read_reg(ctx, LSM6DSO16IS_SLAVE1_CONFIG,
+    ret = lsm6dso16is_read_reg(ctx, LSM6DSO16IS_SLV1_CONFIG,
                                (uint8_t *)&slv1_config, 1);
   }
 
   if (ret == 0)
   {
     slv1_config.slave1_numop = val->slv_len;
-    ret = lsm6dso16is_write_reg(ctx, LSM6DSO16IS_SLAVE1_CONFIG,
+    ret = lsm6dso16is_write_reg(ctx, LSM6DSO16IS_SLV1_CONFIG,
                                 (uint8_t *)&slv1_config, 1);
   }
 
@@ -2720,14 +2720,14 @@ int32_t lsm6dso16is_sh_slv2_cfg_read(stmdev_ctx_t *ctx,
 
   if (ret == 0)
   {
-    ret = lsm6dso16is_read_reg(ctx, LSM6DSO16IS_SLAVE2_CONFIG,
+    ret = lsm6dso16is_read_reg(ctx, LSM6DSO16IS_SLV2_CONFIG,
                                (uint8_t *)&slv2_config, 1);
   }
 
   if (ret == 0)
   {
     slv2_config.slave2_numop = val->slv_len;
-    ret = lsm6dso16is_write_reg(ctx, LSM6DSO16IS_SLAVE2_CONFIG,
+    ret = lsm6dso16is_write_reg(ctx, LSM6DSO16IS_SLV2_CONFIG,
                                 (uint8_t *)&slv2_config, 1);
   }
 
@@ -2774,14 +2774,14 @@ int32_t lsm6dso16is_sh_slv3_cfg_read(stmdev_ctx_t *ctx,
 
   if (ret == 0)
   {
-    ret = lsm6dso16is_read_reg(ctx, LSM6DSO16IS_SLAVE3_CONFIG,
+    ret = lsm6dso16is_read_reg(ctx, LSM6DSO16IS_SLV3_CONFIG,
                                (uint8_t *)&slv3_config, 1);
   }
 
   if (ret == 0)
   {
     slv3_config.slave3_numop = val->slv_len;
-    ret = lsm6dso16is_write_reg(ctx, LSM6DSO16IS_SLAVE3_CONFIG,
+    ret = lsm6dso16is_write_reg(ctx, LSM6DSO16IS_SLV3_CONFIG,
                                 (uint8_t *)&slv3_config, 1);
   }
 
