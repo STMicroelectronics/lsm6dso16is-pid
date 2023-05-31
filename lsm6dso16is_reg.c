@@ -3035,27 +3035,32 @@ int32_t lsm6dso16is_ispu_write_memory(stmdev_ctx_t *ctx,
 
     if (mem_sel == LSM6DSO16IS_ISPU_PROGRAM_RAM_MEMORY)
     {
-      uint16_t addr_s[4] = {0U, 0U, 0U, 0U};
-      uint16_t len_s[4] = {0U, 0U, 0U, 0U};
+      uint16_t addr_s[4] = {(uint16_t)0, (uint16_t)0, (uint16_t)0, (uint16_t)0};
+      uint16_t len_s[4] = {(uint16_t)0, (uint16_t)0, (uint16_t)0, (uint16_t)0};
       uint8_t j = 0;
       uint16_t k;
 
       addr_s[0] = mem_addr;
-      for (i = 0, k = 0; i < len; i++, k++)
+      k = 0U;
+      for (i = 0U; i < len; i++)
       {
         if ((mem_addr + i == 0x2000U) || (mem_addr + i == 0x4000U) || (mem_addr + i == 0x6000U))
         {
           len_s[j++] = k;
           addr_s[j] = mem_addr + i;
-          k = 0;
+          k = 0U;
         }
+
+        k++;
       }
       len_s[j++] = k;
 
-      for (i = 0, k = 0; i < j; k+=len_s[i], i++)
+      k = 0U;
+      for (i = 0U; i < j; i++)
       {
         ret += lsm6dso16is_ispu_sel_memory_addr(ctx, addr_s[i]);
         ret += lsm6dso16is_write_reg(ctx, LSM6DSO16IS_ISPU_MEM_DATA, &mem_data[k], len_s[i]);
+        k+=len_s[i];
       }
     } else {
       /* select memory address */
