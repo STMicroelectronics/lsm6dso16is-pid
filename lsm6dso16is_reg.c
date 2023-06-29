@@ -3007,7 +3007,7 @@ static int32_t lsm6dso16is_ispu_sel_memory_addr(stmdev_ctx_t *ctx, uint16_t mem_
 }
 
 /**
-  * @brief  ISPU write memory
+  * @brief  ISPU write memory. ISPU clock is disabled inside the routine.
   *
   * @param  ctx      read / write interface definitions
   * @param  mem_sel  LSM6DSO16IS_ISPU_DATA_RAM_MEMORY, LSM6DSO16IS_ISPU_PROGRAM_RAM_MEMORY
@@ -3022,16 +3022,24 @@ int32_t lsm6dso16is_ispu_write_memory(stmdev_ctx_t *ctx,
                                       uint16_t mem_addr, uint8_t *mem_data, uint16_t len)
 {
   lsm6dso16is_ispu_mem_sel_t ispu_mem_sel;
+  lsm6dso16is_ispu_config_t ispu_cfg;
+  uint8_t clk_dis;
   int32_t ret;
   uint16_t i;
 
   ret = lsm6dso16is_mem_bank_set(ctx, LSM6DSO16IS_ISPU_MEM_BANK);
   if (ret == 0)
   {
+    /* disable ISPU clock */
+    ret = lsm6dso16is_read_reg(ctx, LSM6DSO16IS_ISPU_CONFIG, (uint8_t *)&ispu_cfg, 1);
+    clk_dis = ispu_cfg.clk_dis;
+    ispu_cfg.clk_dis = 1;
+    ret += lsm6dso16is_write_reg(ctx, LSM6DSO16IS_ISPU_CONFIG, (uint8_t *)&ispu_cfg, 1);
+
     /* select memory to be written */
     ispu_mem_sel.read_mem_en = 0;
     ispu_mem_sel.mem_sel = (uint8_t)mem_sel;
-    ret = lsm6dso16is_write_reg(ctx, LSM6DSO16IS_ISPU_MEM_SEL, (uint8_t *)&ispu_mem_sel, 1);
+    ret += lsm6dso16is_write_reg(ctx, LSM6DSO16IS_ISPU_MEM_SEL, (uint8_t *)&ispu_mem_sel, 1);
 
     if (mem_sel == LSM6DSO16IS_ISPU_PROGRAM_RAM_MEMORY)
     {
@@ -3067,6 +3075,10 @@ int32_t lsm6dso16is_ispu_write_memory(stmdev_ctx_t *ctx,
       ret += lsm6dso16is_ispu_sel_memory_addr(ctx, mem_addr);
       ret += lsm6dso16is_write_reg(ctx, LSM6DSO16IS_ISPU_MEM_DATA, &mem_data[0], len);
     }
+
+    /* set ISPU clock back to previous value */
+    ispu_cfg.clk_dis = clk_dis;
+    ret += lsm6dso16is_write_reg(ctx, LSM6DSO16IS_ISPU_CONFIG, (uint8_t *)&ispu_cfg, 1);
   }
 
   ret += lsm6dso16is_mem_bank_set(ctx, LSM6DSO16IS_MAIN_MEM_BANK);
@@ -3075,7 +3087,7 @@ int32_t lsm6dso16is_ispu_write_memory(stmdev_ctx_t *ctx,
 }
 
 /**
-  * @brief  ISPU read memory
+  * @brief  ISPU read memory. ISPU clock is disabled inside the routine.
   *
   * @param  ctx      read / write interface definitions
   * @param  mem_sel  LSM6DSO16IS_ISPU_DATA_RAM_MEMORY, LSM6DSO16IS_ISPU_PROGRAM_RAM_MEMORY
@@ -3090,22 +3102,35 @@ int32_t lsm6dso16is_ispu_read_memory(stmdev_ctx_t *ctx,
                                      uint16_t mem_addr, uint8_t *mem_data, uint16_t len)
 {
   lsm6dso16is_ispu_mem_sel_t ispu_mem_sel;
+  lsm6dso16is_ispu_config_t ispu_cfg;
+  uint8_t clk_dis;
   int32_t ret;
   uint8_t dummy;
 
   ret = lsm6dso16is_mem_bank_set(ctx, LSM6DSO16IS_ISPU_MEM_BANK);
   if (ret == 0)
   {
+    /* disable ISPU clock */
+    ret = lsm6dso16is_read_reg(ctx, LSM6DSO16IS_ISPU_CONFIG, (uint8_t *)&ispu_cfg, 1);
+    clk_dis = ispu_cfg.clk_dis;
+    ispu_cfg.clk_dis = 1;
+    ret += lsm6dso16is_write_reg(ctx, LSM6DSO16IS_ISPU_CONFIG, (uint8_t *)&ispu_cfg, 1);
+
     /* select memory to be read */
     ispu_mem_sel.read_mem_en = 1;
     ispu_mem_sel.mem_sel = (uint8_t)mem_sel;
-    ret = lsm6dso16is_write_reg(ctx, LSM6DSO16IS_ISPU_MEM_SEL, (uint8_t *)&ispu_mem_sel, 1);
+    ret += lsm6dso16is_write_reg(ctx, LSM6DSO16IS_ISPU_MEM_SEL, (uint8_t *)&ispu_mem_sel, 1);
 
     /* select memory address */
     ret += lsm6dso16is_ispu_sel_memory_addr(ctx, mem_addr);
-    ret += lsm6dso16is_read_reg(ctx, LSM6DSO16IS_ISPU_MEM_DATA, &dummy, 1);
 
+    /* read data */
+    ret += lsm6dso16is_read_reg(ctx, LSM6DSO16IS_ISPU_MEM_DATA, &dummy, 1);
     ret += lsm6dso16is_read_reg(ctx, LSM6DSO16IS_ISPU_MEM_DATA, &mem_data[0], len);
+
+    /* set ISPU clock back to previous value */
+    ispu_cfg.clk_dis = clk_dis;
+    ret += lsm6dso16is_write_reg(ctx, LSM6DSO16IS_ISPU_CONFIG, (uint8_t *)&ispu_cfg, 1);
   }
 
   ret += lsm6dso16is_mem_bank_set(ctx, LSM6DSO16IS_MAIN_MEM_BANK);
