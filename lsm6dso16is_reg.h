@@ -2342,8 +2342,7 @@ typedef enum
   LSM6DSO16IS_ISPU_MEM_BANK =             0x3,
 } lsm6dso16is_mem_bank_t;
 int32_t lsm6dso16is_mem_bank_set(stmdev_ctx_t *ctx, lsm6dso16is_mem_bank_t val);
-int32_t lsm6dso16is_mem_bank_get(stmdev_ctx_t *ctx,
-                                 lsm6dso16is_mem_bank_t *val);
+int32_t lsm6dso16is_mem_bank_get(stmdev_ctx_t *ctx, lsm6dso16is_mem_bank_t *val);
 
 typedef enum
 {
@@ -2368,14 +2367,10 @@ typedef enum
   LSM6DSO16IS_HIGH_PERFOMANCE_MODE_ENABLED =        0x0,
   LSM6DSO16IS_HIGH_PERFOMANCE_MODE_DISABLED =       0x1,
 } lsm6dso16is_hm_mode_t;
-int32_t lsm6dso16is_xl_hm_mode_set(stmdev_ctx_t *ctx,
-                                   lsm6dso16is_hm_mode_t val);
-int32_t lsm6dso16is_xl_hm_mode_get(stmdev_ctx_t *ctx,
-                                   lsm6dso16is_hm_mode_t *val);
-int32_t lsm6dso16is_gy_hm_mode_set(stmdev_ctx_t *ctx,
-                                   lsm6dso16is_hm_mode_t val);
-int32_t lsm6dso16is_gy_hm_mode_get(stmdev_ctx_t *ctx,
-                                   lsm6dso16is_hm_mode_t *val);
+int32_t lsm6dso16is_xl_hm_mode_set(stmdev_ctx_t *ctx, lsm6dso16is_hm_mode_t val);
+int32_t lsm6dso16is_xl_hm_mode_get(stmdev_ctx_t *ctx, lsm6dso16is_hm_mode_t *val);
+int32_t lsm6dso16is_gy_hm_mode_set(stmdev_ctx_t *ctx, lsm6dso16is_hm_mode_t val);
+int32_t lsm6dso16is_gy_hm_mode_get(stmdev_ctx_t *ctx, lsm6dso16is_hm_mode_t *val);
 
 typedef enum
 {
@@ -2506,16 +2501,14 @@ typedef enum
   LSM6DSO16IS_SPI_3_WIRE =                0x1,
 } lsm6dso16is_spi_mode_t;
 int32_t lsm6dso16is_spi_mode_set(stmdev_ctx_t *ctx, lsm6dso16is_spi_mode_t val);
-int32_t lsm6dso16is_spi_mode_get(stmdev_ctx_t *ctx,
-                                 lsm6dso16is_spi_mode_t *val);
+int32_t lsm6dso16is_spi_mode_get(stmdev_ctx_t *ctx, lsm6dso16is_spi_mode_t *val);
 
 typedef enum
 {
   LSM6DSO16IS_I2C_ENABLE =                0x0,
   LSM6DSO16IS_I2C_DISABLE =               0x1,
 } lsm6dso16is_ui_i2c_mode_t;
-int32_t lsm6dso16is_ui_i2c_mode_set(stmdev_ctx_t *ctx,
-                                    lsm6dso16is_ui_i2c_mode_t val);
+int32_t lsm6dso16is_ui_i2c_mode_set(stmdev_ctx_t *ctx, lsm6dso16is_ui_i2c_mode_t val);
 int32_t lsm6dso16is_ui_i2c_mode_get(stmdev_ctx_t *ctx,
                                     lsm6dso16is_ui_i2c_mode_t *val);
 
@@ -2730,8 +2723,7 @@ typedef enum
   LSM6DSO16IS_ISPU_BDU_ON_4B_4B =         0x3,
 } lsm6dso16is_ispu_bdu_t;
 int32_t lsm6dso16is_ispu_bdu_set(stmdev_ctx_t *ctx, lsm6dso16is_ispu_bdu_t val);
-int32_t lsm6dso16is_ispu_bdu_get(stmdev_ctx_t *ctx,
-                                 lsm6dso16is_ispu_bdu_t *val);
+int32_t lsm6dso16is_ispu_bdu_get(stmdev_ctx_t *ctx, lsm6dso16is_ispu_bdu_t *val);
 
 int32_t lsm6dso16is_ia_ispu_get(stmdev_ctx_t *ctx, uint32_t *val);
 

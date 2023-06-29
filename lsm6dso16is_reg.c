@@ -429,8 +429,7 @@ int32_t lsm6dso16is_xl_hm_mode_set(stmdev_ctx_t *ctx, lsm6dso16is_hm_mode_t val)
   * @retval          interface status (MANDATORY: return 0 -> no Error)
   *
   */
-int32_t lsm6dso16is_xl_hm_mode_get(stmdev_ctx_t *ctx,
-                                   lsm6dso16is_hm_mode_t *val)
+int32_t lsm6dso16is_xl_hm_mode_get(stmdev_ctx_t *ctx, lsm6dso16is_hm_mode_t *val)
 {
   lsm6dso16is_ctrl6_c_t ctrl6_c;
   int32_t ret;
@@ -540,18 +539,15 @@ int32_t lsm6dso16is_xl_data_rate_set(stmdev_ctx_t *ctx,
   {
     if (((uint8_t)val & 0x10U) == 0x10U)
     {
-      ret += lsm6dso16is_xl_hm_mode_set(ctx,
-                                        LSM6DSO16IS_HIGH_PERFOMANCE_MODE_DISABLED);
+      ret += lsm6dso16is_xl_hm_mode_set(ctx, LSM6DSO16IS_HIGH_PERFOMANCE_MODE_DISABLED);
     }
     else
     {
-      ret += lsm6dso16is_xl_hm_mode_set(ctx,
-                                        LSM6DSO16IS_HIGH_PERFOMANCE_MODE_ENABLED);
+      ret += lsm6dso16is_xl_hm_mode_set(ctx, LSM6DSO16IS_HIGH_PERFOMANCE_MODE_ENABLED);
     }
 
     ctrl1_xl.odr_xl = ((uint8_t)val & 0xfU);
-    ret += lsm6dso16is_write_reg(ctx, LSM6DSO16IS_CTRL1_XL, (uint8_t *)&ctrl1_xl,
-                                 1);
+    ret += lsm6dso16is_write_reg(ctx, LSM6DSO16IS_CTRL1_XL, (uint8_t *)&ctrl1_xl, 1);
   }
 
   return ret;
@@ -705,8 +701,7 @@ int32_t lsm6dso16is_gy_hm_mode_set(stmdev_ctx_t *ctx, lsm6dso16is_hm_mode_t val)
   * @retval          interface status (MANDATORY: return 0 -> no Error)
   *
   */
-int32_t lsm6dso16is_gy_hm_mode_get(stmdev_ctx_t *ctx,
-                                   lsm6dso16is_hm_mode_t *val)
+int32_t lsm6dso16is_gy_hm_mode_get(stmdev_ctx_t *ctx, lsm6dso16is_hm_mode_t *val)
 {
   lsm6dso16is_ctrl7_g_t ctrl7_g;
   int32_t ret;
@@ -821,13 +816,11 @@ int32_t lsm6dso16is_gy_data_rate_set(stmdev_ctx_t *ctx,
   {
     if (((uint8_t)val & 0x10U) == 0x10U)
     {
-      ret += lsm6dso16is_gy_hm_mode_set(ctx,
-                                        LSM6DSO16IS_HIGH_PERFOMANCE_MODE_DISABLED);
+      ret += lsm6dso16is_gy_hm_mode_set(ctx, LSM6DSO16IS_HIGH_PERFOMANCE_MODE_DISABLED);
     }
     else
     {
-      ret += lsm6dso16is_gy_hm_mode_set(ctx,
-                                        LSM6DSO16IS_HIGH_PERFOMANCE_MODE_ENABLED);
+      ret += lsm6dso16is_gy_hm_mode_set(ctx, LSM6DSO16IS_HIGH_PERFOMANCE_MODE_ENABLED);
     }
 
     ctrl2_g.odr_g = ((uint8_t)val & 0xfU);
@@ -1331,8 +1324,7 @@ int32_t lsm6dso16is_spi_mode_get(stmdev_ctx_t *ctx, lsm6dso16is_spi_mode_t *val)
   * @retval          interface status (MANDATORY: return 0 -> no Error)
   *
   */
-int32_t lsm6dso16is_ui_i2c_mode_set(stmdev_ctx_t *ctx,
-                                    lsm6dso16is_ui_i2c_mode_t val)
+int32_t lsm6dso16is_ui_i2c_mode_set(stmdev_ctx_t *ctx, lsm6dso16is_ui_i2c_mode_t val)
 {
   lsm6dso16is_ctrl4_c_t ctrl4_c;
   int32_t ret;
@@ -1356,8 +1348,7 @@ int32_t lsm6dso16is_ui_i2c_mode_set(stmdev_ctx_t *ctx,
   * @retval          interface status (MANDATORY: return 0 -> no Error)
   *
   */
-int32_t lsm6dso16is_ui_i2c_mode_get(stmdev_ctx_t *ctx,
-                                    lsm6dso16is_ui_i2c_mode_t *val)
+int32_t lsm6dso16is_ui_i2c_mode_get(stmdev_ctx_t *ctx, lsm6dso16is_ui_i2c_mode_t *val)
 {
   lsm6dso16is_ctrl4_c_t ctrl4_c;
   int32_t ret;
@@ -1472,8 +1463,7 @@ int32_t lsm6dso16is_timestamp_raw_get(stmdev_ctx_t *ctx, uint32_t *val)
   * @retval          interface status (MANDATORY: return 0 -> no Error)
   *
   */
-int32_t lsm6dso16is_all_sources_get(stmdev_ctx_t *ctx,
-                                    lsm6dso16is_all_sources_t *val)
+int32_t lsm6dso16is_all_sources_get(stmdev_ctx_t *ctx, lsm6dso16is_all_sources_t *val)
 {
   lsm6dso16is_status_reg_t status_reg;
   lsm6dso16is_status_master_mainpage_t status_sh;
@@ -2061,8 +2051,7 @@ int32_t lsm6dso16is_sh_master_get(stmdev_ctx_t *ctx, uint8_t *val)
   * @retval          interface status (MANDATORY: return 0 -> no Error)
   *
   */
-int32_t lsm6dso16is_sh_master_interface_pull_up_set(stmdev_ctx_t *ctx,
-                                                    uint8_t val)
+int32_t lsm6dso16is_sh_master_interface_pull_up_set(stmdev_ctx_t *ctx, uint8_t val)
 {
   lsm6dso16is_master_config_t master_config;
   int32_t ret;
@@ -2571,8 +2560,7 @@ int32_t lsm6dso16is_ispu_clock_set(stmdev_ctx_t *ctx,
   if (ret == 0)
   {
     ctrl10_c.ispu_clk_sel = (uint8_t)val;
-    ret += lsm6dso16is_write_reg(ctx, LSM6DSO16IS_CTRL10_C, (uint8_t *)&ctrl10_c,
-                                 1);
+    ret += lsm6dso16is_write_reg(ctx, LSM6DSO16IS_CTRL10_C, (uint8_t *)&ctrl10_c, 1);
   }
 
   return ret;
@@ -2801,8 +2789,7 @@ int32_t lsm6dso16is_ispu_write_dummy_cfg(stmdev_ctx_t *ctx, uint8_t offset,
   int32_t ret;
 
   /* check if we are writing outside of the range */
-  if (LSM6DSO16IS_ISPU_DUMMY_CFG_1_L + offset + len >
-      LSM6DSO16IS_ISPU_DUMMY_CFG_4_H)
+  if (LSM6DSO16IS_ISPU_DUMMY_CFG_1_L + offset + len > LSM6DSO16IS_ISPU_DUMMY_CFG_4_H)
   {
     return -1;
   }
@@ -2828,8 +2815,7 @@ int32_t lsm6dso16is_ispu_read_dummy_cfg(stmdev_ctx_t *ctx, uint8_t offset,
   int32_t ret;
 
   /* check if we are reading outside of the range */
-  if (LSM6DSO16IS_ISPU_DUMMY_CFG_1_L + offset + len >
-      LSM6DSO16IS_ISPU_DUMMY_CFG_4_H)
+  if (LSM6DSO16IS_ISPU_DUMMY_CFG_1_L + offset + len > LSM6DSO16IS_ISPU_DUMMY_CFG_4_H)
   {
     return -1;
   }
@@ -3157,12 +3143,10 @@ int32_t lsm6dso16is_ispu_write_flags(stmdev_ctx_t *ctx, uint16_t data)
   {
     /* write the flags */
     flag_h.if2s = (uint8_t)(data / 256U);
-    ret += lsm6dso16is_write_reg(ctx, LSM6DSO16IS_ISPU_IF2S_FLAG_H,
-                                 (uint8_t *)&flag_h,
+    ret += lsm6dso16is_write_reg(ctx, LSM6DSO16IS_ISPU_IF2S_FLAG_H, (uint8_t *)&flag_h,
                                  1);
     flag_l.if2s = (uint8_t)(data & 0xffU);
-    ret += lsm6dso16is_write_reg(ctx, LSM6DSO16IS_ISPU_IF2S_FLAG_L,
-                                 (uint8_t *)&flag_l,
+    ret += lsm6dso16is_write_reg(ctx, LSM6DSO16IS_ISPU_IF2S_FLAG_L, (uint8_t *)&flag_l,
                                  1);
   }
 
@@ -3298,23 +3282,19 @@ int32_t lsm6dso16is_ispu_int1_ctrl_set(stmdev_ctx_t *ctx, uint32_t val)
   {
     /* write the int1_ctrl reg */
     int1_ctrl3.ispu_int1_ctrl = (uint8_t)((val >> 24) & 0xffU);
-    ret += lsm6dso16is_write_reg(ctx, LSM6DSO16IS_ISPU_INT1_CTRL3,
-                                 (uint8_t *)&int1_ctrl3,
+    ret += lsm6dso16is_write_reg(ctx, LSM6DSO16IS_ISPU_INT1_CTRL3, (uint8_t *)&int1_ctrl3,
                                  1);
 
     int1_ctrl2.ispu_int1_ctrl = (uint8_t)((val >> 16) & 0xffU);
-    ret += lsm6dso16is_write_reg(ctx, LSM6DSO16IS_ISPU_INT1_CTRL2,
-                                 (uint8_t *)&int1_ctrl2,
+    ret += lsm6dso16is_write_reg(ctx, LSM6DSO16IS_ISPU_INT1_CTRL2, (uint8_t *)&int1_ctrl2,
                                  1);
 
     int1_ctrl1.ispu_int1_ctrl = (uint8_t)((val >>  8) & 0xffU);
-    ret += lsm6dso16is_write_reg(ctx, LSM6DSO16IS_ISPU_INT1_CTRL1,
-                                 (uint8_t *)&int1_ctrl1,
+    ret += lsm6dso16is_write_reg(ctx, LSM6DSO16IS_ISPU_INT1_CTRL1, (uint8_t *)&int1_ctrl1,
                                  1);
 
     int1_ctrl0.ispu_int1_ctrl = (uint8_t)(val & 0xffU);
-    ret += lsm6dso16is_write_reg(ctx, LSM6DSO16IS_ISPU_INT1_CTRL0,
-                                 (uint8_t *)&int1_ctrl0,
+    ret += lsm6dso16is_write_reg(ctx, LSM6DSO16IS_ISPU_INT1_CTRL0, (uint8_t *)&int1_ctrl0,
                                  1);
   }
 
@@ -3374,23 +3354,19 @@ int32_t lsm6dso16is_ispu_int2_ctrl_set(stmdev_ctx_t *ctx, uint32_t val)
   {
     /* write the int2_ctrl reg */
     int2_ctrl3.ispu_int2_ctrl = (uint8_t)((val >> 24) & 0xffU);
-    ret += lsm6dso16is_write_reg(ctx, LSM6DSO16IS_ISPU_INT2_CTRL3,
-                                 (uint8_t *)&int2_ctrl3,
+    ret += lsm6dso16is_write_reg(ctx, LSM6DSO16IS_ISPU_INT2_CTRL3, (uint8_t *)&int2_ctrl3,
                                  1);
 
     int2_ctrl2.ispu_int2_ctrl = (uint8_t)((val >> 16) & 0xffU);
-    ret += lsm6dso16is_write_reg(ctx, LSM6DSO16IS_ISPU_INT2_CTRL2,
-                                 (uint8_t *)&int2_ctrl2,
+    ret += lsm6dso16is_write_reg(ctx, LSM6DSO16IS_ISPU_INT2_CTRL2, (uint8_t *)&int2_ctrl2,
                                  1);
 
     int2_ctrl1.ispu_int2_ctrl = (uint8_t)((val >>  8) & 0xffU);
-    ret += lsm6dso16is_write_reg(ctx, LSM6DSO16IS_ISPU_INT2_CTRL1,
-                                 (uint8_t *)&int2_ctrl1,
+    ret += lsm6dso16is_write_reg(ctx, LSM6DSO16IS_ISPU_INT2_CTRL1, (uint8_t *)&int2_ctrl1,
                                  1);
 
     int2_ctrl0.ispu_int2_ctrl = (uint8_t)(val & 0xffU);
-    ret += lsm6dso16is_write_reg(ctx, LSM6DSO16IS_ISPU_INT2_CTRL0,
-                                 (uint8_t *)&int2_ctrl0,
+    ret += lsm6dso16is_write_reg(ctx, LSM6DSO16IS_ISPU_INT2_CTRL0, (uint8_t *)&int2_ctrl0,
                                  1);
   }
 
