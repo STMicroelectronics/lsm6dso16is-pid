@@ -51,8 +51,6 @@ This directory contains the LSM6DSO16IS component drivers.
 
 ## Main changes
 
-### First release
-
 - Fix software_reset method
 - Fix ISPU memory read/write APIs
 
@@ -60,13 +58,11 @@ This directory contains the LSM6DSO16IS component drivers.
 
 </div>
 
-<input type="checkbox" id="collapse-section3" checked aria-hidden="true">
+<input type="checkbox" id="collapse-section3" aria-hidden="true">
 <label for="collapse-section3" aria-hidden="true">V2.1.0 / 23-May-2023</label>
 <div>
 
 ## Main changes
-
-### First release
 
 - Use a single lsm6dsv_sh_slv_cfg_read() API for all targets
 - fix shub register names (SLAVE -> SLV)
@@ -76,6 +72,19 @@ This directory contains the LSM6DSO16IS component drivers.
 - review read/write reg ret value checks
 - Fix MISRA errors
 
+##
+
+</div>
+
+<input type="checkbox" id="collapse-section4" checked aria-hidden="true">
+<label for="collapse-section4" aria-hidden="true">V2.1.1 / 30-June-2023</label>
+<div>
+
+## Main changes
+
+- Do not break lines if not longer than 100 columns
+- Fix ISPU read/write routines adding clk disabling
+- Fix API name typo (ispu_read_dummy_cfg)
 
 ##
 
