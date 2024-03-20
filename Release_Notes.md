@@ -76,7 +76,7 @@ This directory contains the LSM6DSO16IS component drivers.
 
 </div>
 
-<input type="checkbox" id="collapse-section4" checked aria-hidden="true">
+<input type="checkbox" id="collapse-section4" aria-hidden="true">
 <label for="collapse-section4" aria-hidden="true">V2.1.1 / 30-June-2023</label>
 <div>
 
@@ -85,6 +85,19 @@ This directory contains the LSM6DSO16IS component drivers.
 - Do not break lines if not longer than 100 columns
 - Fix ISPU read/write routines adding clk disabling
 - Fix API name typo (ispu_read_dummy_cfg)
+
+##
+
+</div>
+
+<input type="checkbox" id="collapse-section5" checked aria-hidden="true">
+<label for="collapse-section5" aria-hidden="true">V3.0.0 / 20-Mar-2024</label>
+<div>
+
+## Main changes
+
+- Fixed code style (Artistic Style Version 3.4.13)
+- Add "const" to ctx arg for all APIs
 
 ##
 
