@@ -2978,7 +2978,7 @@ int32_t lsm6dso16is_ispu_bdu_get(const stmdev_ctx_t *ctx, lsm6dso16is_ispu_bdu_t
     return ret;
   }
 
-  switch ((ctrl9_c.ispu_rate))
+  switch ((ctrl9_c.ispu_bdu))
   {
     case LSM6DSO16IS_ISPU_BDU_OFF:
       *val = LSM6DSO16IS_ISPU_BDU_OFF;
