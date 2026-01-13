@@ -3145,10 +3145,10 @@ int32_t lsm6dso16is_ispu_boot_get(const stmdev_ctx_t *ctx,
     goto exit;
   }
 
-  *val = LSM6DSO16IS_ISPU_TURN_OFF;
+  *val = LSM6DSO16IS_ISPU_TURN_ON;
   if (ispu_config.ispu_rst_n == 1U || ispu_config.clk_dis == 1U)
   {
-    *val = LSM6DSO16IS_ISPU_TURN_ON;
+    *val = LSM6DSO16IS_ISPU_TURN_OFF;
   }
 
 exit:
