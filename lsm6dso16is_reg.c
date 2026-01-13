@@ -3607,14 +3607,14 @@ int32_t lsm6dso16is_ispu_int1_ctrl_set(const stmdev_ctx_t *ctx, uint32_t val)
   lsm6dso16is_ispu_int1_ctrl0_t int1_ctrl0;
   lsm6dso16is_ispu_int1_ctrl1_t int1_ctrl1;
   lsm6dso16is_ispu_int1_ctrl2_t int1_ctrl2;
-  lsm6dso16is_ispu_int1_ctrl3_t int1_ctrl3;
+  lsm6dso16is_ispu_int1_ctrl3_t int1_ctrl3 = {0};
   int32_t ret;
 
   ret = lsm6dso16is_mem_bank_set(ctx, LSM6DSO16IS_ISPU_MEM_BANK);
   if (ret == 0)
   {
     /* write the int1_ctrl reg */
-    int1_ctrl3.ispu_int1_ctrl = (uint8_t)((val >> 24) & 0xffU);
+    int1_ctrl3.ispu_int1_ctrl = (uint8_t)((val >> 24) & 0x3fU);
     ret += lsm6dso16is_write_reg(ctx, LSM6DSO16IS_ISPU_INT1_CTRL3, (uint8_t *)&int1_ctrl3,
                                  1);
 
@@ -3682,14 +3682,14 @@ int32_t lsm6dso16is_ispu_int2_ctrl_set(const stmdev_ctx_t *ctx, uint32_t val)
   lsm6dso16is_ispu_int2_ctrl0_t int2_ctrl0;
   lsm6dso16is_ispu_int2_ctrl1_t int2_ctrl1;
   lsm6dso16is_ispu_int2_ctrl2_t int2_ctrl2;
-  lsm6dso16is_ispu_int2_ctrl3_t int2_ctrl3;
+  lsm6dso16is_ispu_int2_ctrl3_t int2_ctrl3 = {0};
   int32_t ret;
 
   ret = lsm6dso16is_mem_bank_set(ctx, LSM6DSO16IS_ISPU_MEM_BANK);
   if (ret == 0)
   {
     /* write the int2_ctrl reg */
-    int2_ctrl3.ispu_int2_ctrl = (uint8_t)((val >> 24) & 0xffU);
+    int2_ctrl3.ispu_int2_ctrl = (uint8_t)((val >> 24) & 0x3fU);
     ret += lsm6dso16is_write_reg(ctx, LSM6DSO16IS_ISPU_INT2_CTRL3, (uint8_t *)&int2_ctrl3,
                                  1);
 
@@ -3790,14 +3790,14 @@ int32_t lsm6dso16is_ispu_algo_set(const stmdev_ctx_t *ctx, uint32_t val)
   lsm6dso16is_ispu_algo0_t algo0;
   lsm6dso16is_ispu_algo1_t algo1;
   lsm6dso16is_ispu_algo2_t algo2;
-  lsm6dso16is_ispu_algo3_t algo3;
+  lsm6dso16is_ispu_algo3_t algo3 = {0};
   int32_t ret;
 
   ret = lsm6dso16is_mem_bank_set(ctx, LSM6DSO16IS_ISPU_MEM_BANK);
   if (ret == 0)
   {
     /* write the algo reg */
-    algo3.ispu_algo = (uint8_t)((val >> 24) & 0xffU);
+    algo3.ispu_algo = (uint8_t)((val >> 24) & 0x3fU);
     ret += lsm6dso16is_write_reg(ctx, LSM6DSO16IS_ISPU_ALGO3, (uint8_t *)&algo3, 1);
 
     algo2.ispu_algo = (uint8_t)((val >> 16) & 0xffU);
