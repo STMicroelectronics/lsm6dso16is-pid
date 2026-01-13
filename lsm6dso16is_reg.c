@@ -597,7 +597,13 @@ int32_t lsm6dso16is_xl_data_rate_set(const stmdev_ctx_t *ctx,
   * @brief  Accelerometer output data rate (ODR) selection.[get]
   *
   * @param  ctx      read / write interface definitions
-  * @param  val      XL_ODR_OFF, XL_ODR_AT_1Hz875, XL_ODR_AT_7Hz5, XL_ODR_AT_15Hz, XL_ODR_AT_30Hz, XL_ODR_AT_60Hz, XL_ODR_AT_120Hz, XL_ODR_AT_240Hz, XL_ODR_AT_480Hz, XL_ODR_AT_960Hz, XL_ODR_AT_1920Hz, XL_ODR_AT_3840Hz, XL_ODR_AT_7680Hz,
+  * @param  val      XL_ODR_OFF, XL_ODR_AT_12Hz5_HP, XL_ODR_AT_26Hz_HP,
+  *                  XL_ODR_AT_52Hz_HP, XL_ODR_AT_104Hz_HP, XL_ODR_AT_208Hz_HP,
+  *                  XL_ODR_AT_416Hz_HP, XL_ODR_AT_833Hz_HP, XL_ODR_AT_1667Hz_HP,
+  *                  XL_ODR_AT_3333Hz_HP, XL_ODR_AT_6667Hz_HP, XL_ODR_AT_12Hz5_LP,
+  *                  XL_ODR_AT_26Hz_LP, XL_ODR_AT_52Hz_LP, XL_ODR_AT_104Hz_LP,
+  *                  XL_ODR_AT_208Hz_LP, XL_ODR_AT_1Hz6_LP
+  *
   * @retval          interface status (MANDATORY: return 0 -> no Error)
   *
   */
@@ -618,91 +624,78 @@ int32_t lsm6dso16is_xl_data_rate_get(const stmdev_ctx_t *ctx,
 
   switch ((ctrl6_c.xl_hm_mode << 4) | (ctrl1_xl.odr_xl))
   {
-    case LSM6DSO16IS_XL_ODR_OFF:
+    case 0x0:
+    case 0x10:
       *val = LSM6DSO16IS_XL_ODR_OFF;
       break;
 
-    case LSM6DSO16IS_XL_ODR_AT_12Hz5_HP:
+    case 0x0b:
+    case 0x01:
       *val = LSM6DSO16IS_XL_ODR_AT_12Hz5_HP;
       break;
 
-    case LSM6DSO16IS_XL_ODR_AT_26H_HP:
-      *val = LSM6DSO16IS_XL_ODR_AT_26H_HP;
+    case 0x02:
+      *val = LSM6DSO16IS_XL_ODR_AT_26Hz_HP;
       break;
 
-    case LSM6DSO16IS_XL_ODR_AT_52Hz_HP:
+    case 0x03:
       *val = LSM6DSO16IS_XL_ODR_AT_52Hz_HP;
       break;
 
-    case LSM6DSO16IS_XL_ODR_AT_104Hz_HP:
+    case 0x04:
       *val = LSM6DSO16IS_XL_ODR_AT_104Hz_HP;
       break;
 
-    case LSM6DSO16IS_XL_ODR_AT_208Hz_HP:
+    case 0x05:
       *val = LSM6DSO16IS_XL_ODR_AT_208Hz_HP;
       break;
 
-    case LSM6DSO16IS_XL_ODR_AT_416Hz_HP:
+    case 0x06:
+    case 0x16:
       *val = LSM6DSO16IS_XL_ODR_AT_416Hz_HP;
       break;
 
-    case LSM6DSO16IS_XL_ODR_AT_833Hz_HP:
+    case 0x07:
+    case 0x17:
       *val = LSM6DSO16IS_XL_ODR_AT_833Hz_HP;
       break;
 
-    case LSM6DSO16IS_XL_ODR_AT_1667Hz_HP:
+    case 0x08:
+    case 0x18:
       *val = LSM6DSO16IS_XL_ODR_AT_1667Hz_HP;
       break;
 
-    case LSM6DSO16IS_XL_ODR_AT_3333Hz_HP:
+    case 0x09:
+    case 0x19:
       *val = LSM6DSO16IS_XL_ODR_AT_3333Hz_HP;
       break;
 
-    case LSM6DSO16IS_XL_ODR_AT_6667Hz_HP:
+    case 0x0a:
+    case 0x1a:
       *val = LSM6DSO16IS_XL_ODR_AT_6667Hz_HP;
       break;
 
-    case LSM6DSO16IS_XL_ODR_AT_12Hz5_LP:
+    case 0x11:
       *val = LSM6DSO16IS_XL_ODR_AT_12Hz5_LP;
       break;
 
-    case LSM6DSO16IS_XL_ODR_AT_26H_LP:
-      *val = LSM6DSO16IS_XL_ODR_AT_26H_LP;
+    case 0x12:
+      *val = LSM6DSO16IS_XL_ODR_AT_26Hz_LP;
       break;
 
-    case LSM6DSO16IS_XL_ODR_AT_52Hz_LP:
+    case 0x13:
       *val = LSM6DSO16IS_XL_ODR_AT_52Hz_LP;
       break;
 
-    case LSM6DSO16IS_XL_ODR_AT_104Hz_LP:
+    case 0x14:
       *val = LSM6DSO16IS_XL_ODR_AT_104Hz_LP;
       break;
 
-    case LSM6DSO16IS_XL_ODR_AT_208Hz_LP:
+    case 0x15:
       *val = LSM6DSO16IS_XL_ODR_AT_208Hz_LP;
       break;
 
-    case LSM6DSO16IS_XL_ODR_AT_416Hz_LP:
-      *val = LSM6DSO16IS_XL_ODR_AT_416Hz_LP;
-      break;
-
-    case LSM6DSO16IS_XL_ODR_AT_833Hz_LP:
-      *val = LSM6DSO16IS_XL_ODR_AT_833Hz_LP;
-      break;
-
-    case LSM6DSO16IS_XL_ODR_AT_1667Hz_LP:
-      *val = LSM6DSO16IS_XL_ODR_AT_1667Hz_LP;
-      break;
-
-    case LSM6DSO16IS_XL_ODR_AT_3333Hz_LP:
-      *val = LSM6DSO16IS_XL_ODR_AT_3333Hz_LP;
-      break;
-
-    case LSM6DSO16IS_XL_ODR_AT_6667Hz_LP:
-      *val = LSM6DSO16IS_XL_ODR_AT_6667Hz_LP;
-      break;
-
-    case LSM6DSO16IS_XL_ODR_AT_1Hz6_LP:
+    case 0x1b:
       *val = LSM6DSO16IS_XL_ODR_AT_1Hz6_LP;
       break;
 
@@ -855,7 +848,11 @@ int32_t lsm6dso16is_gy_full_scale_get(const stmdev_ctx_t *ctx,
   * @brief  Gyroscope output data rate (ODR) selection.[set]
   *
   * @param  ctx      read / write interface definitions
-  * @param  val      GY_ODR_OFF, GY_ODR_AT_7Hz5, GY_ODR_AT_15Hz, GY_ODR_AT_30Hz, GY_ODR_AT_60Hz, GY_ODR_AT_120Hz, GY_ODR_AT_240Hz, GY_ODR_AT_480Hz, GY_ODR_AT_960Hz, GY_ODR_AT_1920Hz, GY_ODR_AT_3840Hz, GY_ODR_AT_7680Hz,
+  * @param  val      GY_ODR_OFF, GY_ODR_AT_12Hz5_HP, GY_ODR_AT_26Hz_HP, GY_ODR_AT_52Hz_HP,
+  *                  GY_ODR_AT_104Hz_HP, GY_ODR_AT_208Hz_HP, GY_ODR_AT_416Hz_HP,
+  *                  GY_ODR_AT_833Hz_HP, GY_ODR_AT_1667Hz_HP, GY_ODR_AT_3333Hz_HP,
+  *                  GY_ODR_AT_6667Hz_HP, GY_ODR_AT_12Hz5_LP, GY_ODR_AT_26Hz_LP,
+  *                  GY_ODR_AT_52Hz_LP, GY_ODR_AT_104Hz_LP, GY_ODR_AT_208Hz_LP
   * @retval          interface status (MANDATORY: return 0 -> no Error)
   *
   */
@@ -889,7 +886,12 @@ int32_t lsm6dso16is_gy_data_rate_set(const stmdev_ctx_t *ctx,
   * @brief  Gyroscope output data rate (ODR) selection.[get]
   *
   * @param  ctx      read / write interface definitions
-  * @param  val      GY_ODR_OFF, GY_ODR_AT_7Hz5, GY_ODR_AT_15Hz, GY_ODR_AT_30Hz, GY_ODR_AT_60Hz, GY_ODR_AT_120Hz, GY_ODR_AT_240Hz, GY_ODR_AT_480Hz, GY_ODR_AT_960Hz, GY_ODR_AT_1920Hz, GY_ODR_AT_3840Hz, GY_ODR_AT_7680Hz,
+  * @param  val      GY_ODR_OFF, GY_ODR_AT_12Hz5_HP, GY_ODR_AT_26Hz_HP, GY_ODR_AT_52Hz_HP,
+  *                  GY_ODR_AT_104Hz_HP, GY_ODR_AT_208Hz_HP, GY_ODR_AT_416Hz_HP,
+  *                  GY_ODR_AT_833Hz_HP, GY_ODR_AT_1667Hz_HP, GY_ODR_AT_3333Hz_HP,
+  *                  GY_ODR_AT_6667Hz_HP, GY_ODR_AT_12Hz5_LP, GY_ODR_AT_26Hz_LP,
+  *                  GY_ODR_AT_52Hz_LP, GY_ODR_AT_104Hz_LP, GY_ODR_AT_208Hz_LP
+  *
   * @retval          interface status (MANDATORY: return 0 -> no Error)
   *
   */
@@ -910,88 +912,74 @@ int32_t lsm6dso16is_gy_data_rate_get(const stmdev_ctx_t *ctx,
 
   switch ((ctrl7_g.g_hm_mode << 4) | (ctrl2_g.odr_g))
   {
-    case LSM6DSO16IS_GY_ODR_OFF:
+    case 0x00:
+    case 0x10:
       *val = LSM6DSO16IS_GY_ODR_OFF;
       break;
 
-    case LSM6DSO16IS_GY_ODR_AT_12Hz5_HP:
+    case 0x01:
       *val = LSM6DSO16IS_GY_ODR_AT_12Hz5_HP;
       break;
 
-    case LSM6DSO16IS_GY_ODR_AT_26H_HP:
-      *val = LSM6DSO16IS_GY_ODR_AT_26H_HP;
+    case 0x02:
+      *val = LSM6DSO16IS_GY_ODR_AT_26Hz_HP;
       break;
 
-    case LSM6DSO16IS_GY_ODR_AT_52Hz_HP:
+    case 0x03:
       *val = LSM6DSO16IS_GY_ODR_AT_52Hz_HP;
       break;
 
-    case LSM6DSO16IS_GY_ODR_AT_104Hz_HP:
+    case 0x04:
       *val = LSM6DSO16IS_GY_ODR_AT_104Hz_HP;
       break;
 
-    case LSM6DSO16IS_GY_ODR_AT_208Hz_HP:
+    case 0x05:
       *val = LSM6DSO16IS_GY_ODR_AT_208Hz_HP;
       break;
 
-    case LSM6DSO16IS_GY_ODR_AT_416Hz_HP:
+    case 0x06:
+    case 0x16:
       *val = LSM6DSO16IS_GY_ODR_AT_416Hz_HP;
       break;
 
-    case LSM6DSO16IS_GY_ODR_AT_833Hz_HP:
+    case 0x07:
+    case 0x17:
       *val = LSM6DSO16IS_GY_ODR_AT_833Hz_HP;
       break;
 
-    case LSM6DSO16IS_GY_ODR_AT_1667Hz_HP:
+    case 0x08:
+    case 0x18:
       *val = LSM6DSO16IS_GY_ODR_AT_1667Hz_HP;
       break;
 
-    case LSM6DSO16IS_GY_ODR_AT_3333Hz_HP:
+    case 0x09:
+    case 0x19:
       *val = LSM6DSO16IS_GY_ODR_AT_3333Hz_HP;
       break;
 
-    case LSM6DSO16IS_GY_ODR_AT_6667Hz_HP:
+    case 0x0a:
+    case 0x1a:
       *val = LSM6DSO16IS_GY_ODR_AT_6667Hz_HP;
       break;
 
-    case LSM6DSO16IS_GY_ODR_AT_12Hz5_LP:
+    case 0x11:
       *val = LSM6DSO16IS_GY_ODR_AT_12Hz5_LP;
       break;
 
-    case LSM6DSO16IS_GY_ODR_AT_26H_LP:
-      *val = LSM6DSO16IS_GY_ODR_AT_26H_LP;
+    case 0x12:
+      *val = LSM6DSO16IS_GY_ODR_AT_26Hz_LP;
       break;
 
-    case LSM6DSO16IS_GY_ODR_AT_52Hz_LP:
+    case 0x13:
       *val = LSM6DSO16IS_GY_ODR_AT_52Hz_LP;
       break;
 
-    case LSM6DSO16IS_GY_ODR_AT_104Hz_LP:
+    case 0x14:
       *val = LSM6DSO16IS_GY_ODR_AT_104Hz_LP;
       break;
 
-    case LSM6DSO16IS_GY_ODR_AT_208Hz_LP:
+    case 0x15:
       *val = LSM6DSO16IS_GY_ODR_AT_208Hz_LP;
-      break;
-
-    case LSM6DSO16IS_GY_ODR_AT_416Hz_LP:
-      *val = LSM6DSO16IS_GY_ODR_AT_416Hz_LP;
-      break;
-
-    case LSM6DSO16IS_GY_ODR_AT_833Hz_LP:
-      *val = LSM6DSO16IS_GY_ODR_AT_833Hz_LP;
-      break;
-
-    case LSM6DSO16IS_GY_ODR_AT_1667Hz_LP:
-      *val = LSM6DSO16IS_GY_ODR_AT_1667Hz_LP;
-      break;
-
-    case LSM6DSO16IS_GY_ODR_AT_3333Hz_LP:
-      *val = LSM6DSO16IS_GY_ODR_AT_3333Hz_LP;
-      break;
-
-    case LSM6DSO16IS_GY_ODR_AT_6667Hz_LP:
-      *val = LSM6DSO16IS_GY_ODR_AT_6667Hz_LP;
       break;
 
     default:
