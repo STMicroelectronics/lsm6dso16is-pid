@@ -128,7 +128,7 @@ This directory contains the LSM6DSO16IS component drivers.
 
 </div>
 
-<input type="checkbox" id="collapse-section8" checked aria-hidden="true">
+<input type="checkbox" id="collapse-section8" aria-hidden="true">
 <label for="collapse-section8" aria-hidden="true">V3.2.0 / 07-Oct-2025</label>
 <div>
 
@@ -136,6 +136,22 @@ This directory contains the LSM6DSO16IS component drivers.
 
 - Added checks before writes and membank setting
 - Adding CODE_OF_CONDUCT.md and SECURITY.md
+
+##
+
+</div>
+
+<input type="checkbox" id="collapse-section9" checked aria-hidden="true">
+<label for="collapse-section9" aria-hidden="true">V3.2.1 / 15-Jan-2026</label>
+<div>
+
+## Main changes
+
+- Converted I2C address representation from 7-bit to 8-bit in sensor-hub
+- Fix ispu_bdu_get API, wrong bit read
+- Fix ispu_boot_get API
+- Fit initialization in ispu_int1_ctrl1_set API
+- Fix xl/gy_data_rate_t enum values and getter APIs
 
 ##
 
