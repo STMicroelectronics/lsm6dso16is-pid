@@ -30,29 +30,81 @@ This directory contains the LSM6DSO16IS component drivers.
 # Update history
 
 ::: {.collapse}
-
-<input type="checkbox" id="collapse-section1" aria-hidden="true">
-<label for="collapse-section1" aria-hidden="true">V1.0.0 / 17-October-2022</label>
+<input type="checkbox" id="collapse-section9" checked aria-hidden="true">
+<label for="collapse-section9" aria-hidden="true">V3.2.1 / 15-Jan-2026</label>
 <div>
 
 ## Main changes
 
-### First release
+- Converted I2C address representation from 7-bit to 8-bit in sensor-hub
+- Fix ispu_bdu_get API, wrong bit read
+- Fix ispu_boot_get API
+- Fit initialization in ispu_int1_ctrl1_set API
+- Fix xl/gy_data_rate_t enum values and getter APIs
 
-- First official release [ref. DS v2.0]
+##
+
+</div>
+<input type="checkbox" id="collapse-section8" aria-hidden="true">
+<label for="collapse-section8" aria-hidden="true">V3.2.0 / 07-Oct-2025</label>
+<div>
+
+## Main changes
+
+- Added checks before writes and membank setting
+- Adding CODE_OF_CONDUCT.md and SECURITY.md
 
 ##
 
 </div>
 
-<input type="checkbox" id="collapse-section2" aria-hidden="true">
-<label for="collapse-section2" aria-hidden="true">V2.0.0 / 6-April-2023</label>
+<input type="checkbox" id="collapse-section7" aria-hidden="true">
+<label for="collapse-section7" aria-hidden="true">V3.1.0 / 07-Jul-2025</label>
 <div>
 
 ## Main changes
 
-- Fix software_reset method
-- Fix ISPU memory read/write APIs
+- Fix driver formatting options
+- Added pointer to private data in stmdev_ctx_t
+
+##
+
+</div>
+
+<input type="checkbox" id="collapse-section6" aria-hidden="true">
+<label for="collapse-section6" aria-hidden="true">V3.0.1 / 20-Jun-2024</label>
+<div>
+
+## Main changes
+
+- updated README.md file with tag reference and mdelay description
+
+##
+
+</div>
+
+<input type="checkbox" id="collapse-section5" aria-hidden="true">
+<label for="collapse-section5" aria-hidden="true">V3.0.0 / 20-Mar-2024</label>
+<div>
+
+## Main changes
+
+- Fixed code style (Artistic Style Version 3.4.13)
+- Add "const" to ctx arg for all APIs
+
+##
+
+</div>
+
+<input type="checkbox" id="collapse-section4" aria-hidden="true">
+<label for="collapse-section4" aria-hidden="true">V2.1.1 / 30-June-2023</label>
+<div>
+
+## Main changes
+
+- Do not break lines if not longer than 100 columns
+- Fix ISPU read/write routines adding clk disabling
+- Fix API name typo (ispu_read_dummy_cfg)
 
 ##
 
@@ -76,86 +128,34 @@ This directory contains the LSM6DSO16IS component drivers.
 
 </div>
 
-<input type="checkbox" id="collapse-section4" aria-hidden="true">
-<label for="collapse-section4" aria-hidden="true">V2.1.1 / 30-June-2023</label>
+<input type="checkbox" id="collapse-section2" aria-hidden="true">
+<label for="collapse-section2" aria-hidden="true">V2.0.0 / 6-April-2023</label>
 <div>
 
 ## Main changes
 
-- Do not break lines if not longer than 100 columns
-- Fix ISPU read/write routines adding clk disabling
-- Fix API name typo (ispu_read_dummy_cfg)
+- Fix software_reset method
+- Fix ISPU memory read/write APIs
 
 ##
 
 </div>
 
-<input type="checkbox" id="collapse-section5" aria-hidden="true">
-<label for="collapse-section5" aria-hidden="true">V3.0.0 / 20-Mar-2024</label>
+<input type="checkbox" id="collapse-section1" aria-hidden="true">
+<label for="collapse-section1" aria-hidden="true">V1.0.0 / 17-October-2022</label>
 <div>
 
 ## Main changes
 
-- Fixed code style (Artistic Style Version 3.4.13)
-- Add "const" to ctx arg for all APIs
+### First release
+
+- First official release [ref. DS v2.0]
 
 ##
 
 </div>
 
-<input type="checkbox" id="collapse-section6" aria-hidden="true">
-<label for="collapse-section6" aria-hidden="true">V3.0.1 / 20-Jun-2024</label>
-<div>
 
-## Main changes
-
-- updated README.md file with tag reference and mdelay description
-
-##
-
-</div>
-
-<input type="checkbox" id="collapse-section7" aria-hidden="true">
-<label for="collapse-section7" aria-hidden="true">V3.1.0 / 07-Jul-2025</label>
-<div>
-
-## Main changes
-
-- Fix driver formatting options
-- Added pointer to private data in stmdev_ctx_t
-
-##
-
-</div>
-
-<input type="checkbox" id="collapse-section8" aria-hidden="true">
-<label for="collapse-section8" aria-hidden="true">V3.2.0 / 07-Oct-2025</label>
-<div>
-
-## Main changes
-
-- Added checks before writes and membank setting
-- Adding CODE_OF_CONDUCT.md and SECURITY.md
-
-##
-
-</div>
-
-<input type="checkbox" id="collapse-section9" checked aria-hidden="true">
-<label for="collapse-section9" aria-hidden="true">V3.2.1 / 15-Jan-2026</label>
-<div>
-
-## Main changes
-
-- Converted I2C address representation from 7-bit to 8-bit in sensor-hub
-- Fix ispu_bdu_get API, wrong bit read
-- Fix ispu_boot_get API
-- Fit initialization in ispu_int1_ctrl1_set API
-- Fix xl/gy_data_rate_t enum values and getter APIs
-
-##
-
-</div>
 :::
 
 
