@@ -315,11 +315,11 @@ int32_t lsm6dso16is_data_ready_mode_get(const stmdev_ctx_t *ctx,
 
   switch ((drdy_pulsed_reg.drdy_pulsed))
   {
-    case LSM6DSO16IS_DRDY_LATCHED:
+    case 0x00:
       *val = LSM6DSO16IS_DRDY_LATCHED;
       break;
 
-    case LSM6DSO16IS_DRDY_PULSED:
+    case 0x01:
       *val = LSM6DSO16IS_DRDY_PULSED;
       break;
 
@@ -473,11 +473,11 @@ int32_t lsm6dso16is_xl_hm_mode_get(const stmdev_ctx_t *ctx, lsm6dso16is_hm_mode_
 
   switch ((ctrl6_c.xl_hm_mode))
   {
-    case LSM6DSO16IS_HIGH_PERFOMANCE_MODE_ENABLED:
+    case 0x00:
       *val = LSM6DSO16IS_HIGH_PERFOMANCE_MODE_ENABLED;
       break;
 
-    case LSM6DSO16IS_HIGH_PERFOMANCE_MODE_DISABLED:
+    case 0x01:
       *val = LSM6DSO16IS_HIGH_PERFOMANCE_MODE_DISABLED;
       break;
 
@@ -536,19 +536,19 @@ int32_t lsm6dso16is_xl_full_scale_get(const stmdev_ctx_t *ctx,
 
   switch ((ctrl1_xl.fs_xl))
   {
-    case LSM6DSO16IS_2g:
+    case 0x00:
       *val = LSM6DSO16IS_2g;
       break;
 
-    case LSM6DSO16IS_4g:
+    case 0x02:
       *val = LSM6DSO16IS_4g;
       break;
 
-    case LSM6DSO16IS_8g:
+    case 0x03:
       *val = LSM6DSO16IS_8g;
       break;
 
-    case LSM6DSO16IS_16g:
+    case 0x01:
       *val = LSM6DSO16IS_16g;
       break;
 
@@ -753,11 +753,11 @@ int32_t lsm6dso16is_gy_hm_mode_get(const stmdev_ctx_t *ctx, lsm6dso16is_hm_mode_
 
   switch ((ctrl7_g.g_hm_mode))
   {
-    case LSM6DSO16IS_HIGH_PERFOMANCE_MODE_ENABLED:
+    case 0x00:
       *val = LSM6DSO16IS_HIGH_PERFOMANCE_MODE_ENABLED;
       break;
 
-    case LSM6DSO16IS_HIGH_PERFOMANCE_MODE_DISABLED:
+    case 0x01:
       *val = LSM6DSO16IS_HIGH_PERFOMANCE_MODE_DISABLED;
       break;
 
@@ -817,23 +817,23 @@ int32_t lsm6dso16is_gy_full_scale_get(const stmdev_ctx_t *ctx,
 
   switch ((ctrl2_g.fs_125 << 4) | (ctrl2_g.fs_g))
   {
-    case LSM6DSO16IS_125dps:
+    case 0x10:
       *val = LSM6DSO16IS_125dps;
       break;
 
-    case LSM6DSO16IS_250dps:
+    case 0x00:
       *val = LSM6DSO16IS_250dps;
       break;
 
-    case LSM6DSO16IS_500dps:
+    case 0x01:
       *val = LSM6DSO16IS_500dps;
       break;
 
-    case LSM6DSO16IS_1000dps:
+    case 0x02:
       *val = LSM6DSO16IS_1000dps;
       break;
 
-    case LSM6DSO16IS_2000dps:
+    case 0x03:
       *val = LSM6DSO16IS_2000dps;
       break;
 
@@ -1134,11 +1134,11 @@ int32_t lsm6dso16is_sleep_get(const stmdev_ctx_t *ctx, lsm6dso16is_sleep_t *val)
 
   switch ((ctrl4_c.sleep_g))
   {
-    case LSM6DSO16IS_SLEEP_G_ENABLE:
+    case 0x00:
       *val = LSM6DSO16IS_SLEEP_G_ENABLE;
       break;
 
-    case LSM6DSO16IS_SLEEP_G_DISABLE:
+    case 0x01:
       *val = LSM6DSO16IS_SLEEP_G_DISABLE;
       break;
 
@@ -1197,15 +1197,15 @@ int32_t lsm6dso16is_xl_self_test_get(const stmdev_ctx_t *ctx,
 
   switch ((ctrl5_c.st_xl))
   {
-    case LSM6DSO16IS_XL_ST_DISABLE:
+    case 0x00:
       *val = LSM6DSO16IS_XL_ST_DISABLE;
       break;
 
-    case LSM6DSO16IS_XL_ST_POSITIVE:
+    case 0x01:
       *val = LSM6DSO16IS_XL_ST_POSITIVE;
       break;
 
-    case LSM6DSO16IS_XL_ST_NEGATIVE:
+    case 0x02:
       *val = LSM6DSO16IS_XL_ST_NEGATIVE;
       break;
 
@@ -1264,15 +1264,15 @@ int32_t lsm6dso16is_gy_self_test_get(const stmdev_ctx_t *ctx,
 
   switch ((ctrl5_c.st_g))
   {
-    case LSM6DSO16IS_GY_ST_DISABLE:
+    case 0x00:
       *val = LSM6DSO16IS_GY_ST_DISABLE;
       break;
 
-    case LSM6DSO16IS_GY_ST_POSITIVE:
+    case 0x01:
       *val = LSM6DSO16IS_GY_ST_POSITIVE;
       break;
 
-    case LSM6DSO16IS_GY_ST_NEGATIVE:
+    case 0x03:
       *val = LSM6DSO16IS_GY_ST_NEGATIVE;
       break;
 
@@ -1384,11 +1384,11 @@ int32_t lsm6dso16is_spi_mode_get(const stmdev_ctx_t *ctx, lsm6dso16is_spi_mode_t
 
   switch ((ctrl3_c.sim))
   {
-    case LSM6DSO16IS_SPI_4_WIRE:
+    case 0x00:
       *val = LSM6DSO16IS_SPI_4_WIRE;
       break;
 
-    case LSM6DSO16IS_SPI_3_WIRE:
+    case 0x01:
       *val = LSM6DSO16IS_SPI_3_WIRE;
       break;
 
@@ -1445,11 +1445,11 @@ int32_t lsm6dso16is_ui_i2c_mode_get(const stmdev_ctx_t *ctx, lsm6dso16is_ui_i2c_
 
   switch ((ctrl4_c.i2c_disable))
   {
-    case LSM6DSO16IS_I2C_ENABLE:
+    case 0x00:
       *val = LSM6DSO16IS_I2C_ENABLE;
       break;
 
-    case LSM6DSO16IS_I2C_DISABLE:
+    case 0x01:
       *val = LSM6DSO16IS_I2C_DISABLE;
       break;
 
@@ -1975,11 +1975,11 @@ int32_t lsm6dso16is_int_pin_mode_get(const stmdev_ctx_t *ctx,
 
   switch ((ctrl3_c.pp_od))
   {
-    case LSM6DSO16IS_PUSH_PULL:
+    case 0x00:
       *val = LSM6DSO16IS_PUSH_PULL;
       break;
 
-    case LSM6DSO16IS_OPEN_DRAIN:
+    case 0x01:
       *val = LSM6DSO16IS_OPEN_DRAIN;
       break;
 
@@ -2038,11 +2038,11 @@ int32_t lsm6dso16is_pin_polarity_get(const stmdev_ctx_t *ctx,
 
   switch ((ctrl3_c.h_lactive))
   {
-    case LSM6DSO16IS_ACTIVE_HIGH:
+    case 0x00:
       *val = LSM6DSO16IS_ACTIVE_HIGH;
       break;
 
-    case LSM6DSO16IS_ACTIVE_LOW:
+    case 0x01:
       *val = LSM6DSO16IS_ACTIVE_LOW;
       break;
 
@@ -2143,19 +2143,19 @@ int32_t lsm6dso16is_sh_slave_connected_get(const stmdev_ctx_t *ctx,
 
   switch (master_config.aux_sens_on)
   {
-    case LSM6DSO16IS_SLV_0:
+    case 0x00:
       *val = LSM6DSO16IS_SLV_0;
       break;
 
-    case LSM6DSO16IS_SLV_0_1:
+    case 0x01:
       *val = LSM6DSO16IS_SLV_0_1;
       break;
 
-    case LSM6DSO16IS_SLV_0_1_2:
+    case 0x02:
       *val = LSM6DSO16IS_SLV_0_1_2;
       break;
 
-    case LSM6DSO16IS_SLV_0_1_2_3:
+    case 0x03:
       *val = LSM6DSO16IS_SLV_0_1_2_3;
       break;
 
@@ -2385,11 +2385,11 @@ int32_t lsm6dso16is_sh_syncro_mode_get(const stmdev_ctx_t *ctx,
 
   switch (master_config.start_config)
   {
-    case LSM6DSO16IS_SH_TRG_XL_GY_DRDY:
+    case 0x00:
       *val = LSM6DSO16IS_SH_TRG_XL_GY_DRDY;
       break;
 
-    case LSM6DSO16IS_SH_TRIG_INT2:
+    case 0x01:
       *val = LSM6DSO16IS_SH_TRIG_INT2;
       break;
 
@@ -2455,11 +2455,11 @@ int32_t lsm6dso16is_sh_write_mode_get(const stmdev_ctx_t *ctx,
 
   switch (master_config.write_once)
   {
-    case LSM6DSO16IS_EACH_SH_CYCLE:
+    case 0x00:
       *val = LSM6DSO16IS_EACH_SH_CYCLE;
       break;
 
-    case LSM6DSO16IS_ONLY_FIRST_CYCLE:
+    case 0x01:
       *val = LSM6DSO16IS_ONLY_FIRST_CYCLE;
       break;
 
@@ -2627,19 +2627,19 @@ int32_t lsm6dso16is_sh_data_rate_get(const stmdev_ctx_t *ctx,
 
   switch (slv0_config.shub_odr)
   {
-    case LSM6DSO16IS_SH_12_5Hz:
+    case 0x03:
       *val = LSM6DSO16IS_SH_12_5Hz;
       break;
 
-    case LSM6DSO16IS_SH_26Hz:
+    case 0x02:
       *val = LSM6DSO16IS_SH_26Hz;
       break;
 
-    case LSM6DSO16IS_SH_52Hz:
+    case 0x01:
       *val = LSM6DSO16IS_SH_52Hz;
       break;
 
-    case LSM6DSO16IS_SH_104Hz:
+    case 0x00:
       *val = LSM6DSO16IS_SH_104Hz;
       break;
 
@@ -2883,47 +2883,47 @@ int32_t lsm6dso16is_ispu_data_rate_get(const stmdev_ctx_t *ctx,
 
   switch ((ctrl9_c.ispu_rate))
   {
-    case LSM6DSO16IS_ISPU_ODR_OFF:
+    case 0x00:
       *val = LSM6DSO16IS_ISPU_ODR_OFF;
       break;
 
-    case LSM6DSO16IS_ISPU_ODR_AT_12Hz5:
+    case 0x01:
       *val = LSM6DSO16IS_ISPU_ODR_AT_12Hz5;
       break;
 
-    case LSM6DSO16IS_ISPU_ODR_AT_26Hz:
+    case 0x02:
       *val = LSM6DSO16IS_ISPU_ODR_AT_26Hz;
       break;
 
-    case LSM6DSO16IS_ISPU_ODR_AT_52Hz:
+    case 0x03:
       *val = LSM6DSO16IS_ISPU_ODR_AT_52Hz;
       break;
 
-    case LSM6DSO16IS_ISPU_ODR_AT_104Hz:
+    case 0x04:
       *val = LSM6DSO16IS_ISPU_ODR_AT_104Hz;
       break;
 
-    case LSM6DSO16IS_ISPU_ODR_AT_208Hz:
+    case 0x05:
       *val = LSM6DSO16IS_ISPU_ODR_AT_208Hz;
       break;
 
-    case LSM6DSO16IS_ISPU_ODR_AT_416Hz:
+    case 0x06:
       *val = LSM6DSO16IS_ISPU_ODR_AT_416Hz;
       break;
 
-    case LSM6DSO16IS_ISPU_ODR_AT_833Hz:
+    case 0x07:
       *val = LSM6DSO16IS_ISPU_ODR_AT_833Hz;
       break;
 
-    case LSM6DSO16IS_ISPU_ODR_AT_1667Hz:
+    case 0x08:
       *val = LSM6DSO16IS_ISPU_ODR_AT_1667Hz;
       break;
 
-    case LSM6DSO16IS_ISPU_ODR_AT_3333Hz:
+    case 0x09:
       *val = LSM6DSO16IS_ISPU_ODR_AT_3333Hz;
       break;
 
-    case LSM6DSO16IS_ISPU_ODR_AT_6667Hz:
+    case 0x0A:
       *val = LSM6DSO16IS_ISPU_ODR_AT_6667Hz;
       break;
 
@@ -2980,19 +2980,19 @@ int32_t lsm6dso16is_ispu_bdu_get(const stmdev_ctx_t *ctx, lsm6dso16is_ispu_bdu_t
 
   switch ((ctrl9_c.ispu_bdu))
   {
-    case LSM6DSO16IS_ISPU_BDU_OFF:
+    case 0x00:
       *val = LSM6DSO16IS_ISPU_BDU_OFF;
       break;
 
-    case LSM6DSO16IS_ISPU_BDU_ON_2B_4B:
+    case 0x01:
       *val = LSM6DSO16IS_ISPU_BDU_ON_2B_4B;
       break;
 
-    case LSM6DSO16IS_ISPU_BDU_ON_2B_2B:
+    case 0x02:
       *val = LSM6DSO16IS_ISPU_BDU_ON_2B_2B;
       break;
 
-    case LSM6DSO16IS_ISPU_BDU_ON_4B_4B:
+    case 0x03:
       *val = LSM6DSO16IS_ISPU_BDU_ON_4B_4B;
       break;
 
@@ -3216,11 +3216,11 @@ int32_t lsm6dso16is_ispu_int_latched_get(const stmdev_ctx_t *ctx,
 
   switch ((ispu_config.latched))
   {
-    case LSM6DSO16IS_ISPU_INT_PULSED:
+    case 0x00:
       *val = LSM6DSO16IS_ISPU_INT_PULSED;
       break;
 
-    case LSM6DSO16IS_ISPU_INT_LATCHED:
+    case 0x01:
       *val = LSM6DSO16IS_ISPU_INT_LATCHED;
       break;
 
