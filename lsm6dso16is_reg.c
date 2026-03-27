@@ -2819,7 +2819,6 @@ int32_t lsm6dso16is_ispu_clock_get(const stmdev_ctx_t *ctx,
 
   switch (ctrl10_c.ispu_clk_sel)
   {
-    default:
     case 0:
       *val = LSM6DSO16IS_ISPU_CLK_5MHz;
       break;
