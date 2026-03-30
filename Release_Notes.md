@@ -30,7 +30,19 @@ This directory contains the LSM6DSO16IS component drivers.
 # Update history
 
 ::: {.collapse}
-<input type="checkbox" id="collapse-section10" checked aria-hidden="true">
+<input type="checkbox" id="collapse-section11" checked aria-hidden="true">
+<label for="collapse-section11" aria-hidden="true">V3.2.3 / 30-Mar-2026</label>
+<div>
+
+## Main changes
+
+- Remove duplicate default case in ispu_clock_get API
+- Fix some MISRA rules
+
+##
+
+</div>
+<input type="checkbox" id="collapse-section10" aria-hidden="true">
 <label for="collapse-section10" aria-hidden="true">V3.2.2 / 18-Mar-2026</label>
 <div>
 
