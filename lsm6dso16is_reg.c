@@ -395,7 +395,7 @@ int32_t lsm6dso16is_boot_set(const stmdev_ctx_t *ctx, uint8_t val)
 
   if (ret == 0)
   {
-    ctrl3_c.boot = val;
+    ctrl3_c.boot = val & 0x01U;
     ret = lsm6dso16is_write_reg(ctx, LSM6DSO16IS_CTRL3_C, (uint8_t *)&ctrl3_c, 1);
   }
 
@@ -787,7 +787,7 @@ int32_t lsm6dso16is_gy_full_scale_set(const stmdev_ctx_t *ctx,
   if (ret == 0)
   {
     ctrl2_g.fs_g = ((uint8_t)val & 0x3U);
-    ctrl2_g.fs_125 = ((uint8_t)val >> 4);
+    ctrl2_g.fs_125 = ((uint8_t)val >> 4) & 0x01U;
     ret = lsm6dso16is_write_reg(ctx, LSM6DSO16IS_CTRL2_G, (uint8_t *)&ctrl2_g, 1);
   }
 
@@ -1007,7 +1007,7 @@ int32_t lsm6dso16is_auto_increment_set(const stmdev_ctx_t *ctx, uint8_t val)
 
   if (ret == 0)
   {
-    ctrl3_c.if_inc = val;
+    ctrl3_c.if_inc = val & 0x01U;
     ret = lsm6dso16is_write_reg(ctx, LSM6DSO16IS_CTRL3_C, (uint8_t *)&ctrl3_c, 1);
   }
 
@@ -1056,7 +1056,7 @@ int32_t lsm6dso16is_block_data_update_set(const stmdev_ctx_t *ctx, uint8_t val)
 
   if (ret == 0)
   {
-    ctrl3_c.bdu = val;
+    ctrl3_c.bdu = val & 0x01U;
     ret = lsm6dso16is_write_reg(ctx, LSM6DSO16IS_CTRL3_C, (uint8_t *)&ctrl3_c, 1);
   }
 
@@ -1306,7 +1306,7 @@ int32_t lsm6dso16is_ui_sdo_pull_up_set(const stmdev_ctx_t *ctx, uint8_t val)
 
   if (ret == 0)
   {
-    pin_ctrl.sdo_pu_en = val;
+    pin_ctrl.sdo_pu_en = val & 0x01U;
     ret = lsm6dso16is_write_reg(ctx, LSM6DSO16IS_PIN_CTRL, (uint8_t *)&pin_ctrl, 1);
   }
 
@@ -1488,7 +1488,7 @@ int32_t lsm6dso16is_timestamp_set(const stmdev_ctx_t *ctx, uint8_t val)
 
   if (ret == 0)
   {
-    ctrl10_c.timestamp_en = val;
+    ctrl10_c.timestamp_en = val & 0x01U;
     ret = lsm6dso16is_write_reg(ctx, LSM6DSO16IS_CTRL10_C, (uint8_t *)&ctrl10_c, 1);
   }
 
@@ -1541,9 +1541,9 @@ int32_t lsm6dso16is_timestamp_raw_get(const stmdev_ctx_t *ctx, uint32_t *val)
   }
 
   *val = (uint32_t)buff[3];
-  *val = (*val * 256U) + (uint32_t)buff[2];
-  *val = (*val * 256U) + (uint32_t)buff[1];
-  *val = (*val * 256U) + (uint32_t)buff[0];
+  *val = (*val << 8) | (uint32_t)buff[2];
+  *val = (*val << 8) | (uint32_t)buff[1];
+  *val = (*val << 8) | (uint32_t)buff[0];
 
   return ret;
 }
@@ -1597,7 +1597,7 @@ int32_t lsm6dso16is_all_sources_get(const stmdev_ctx_t *ctx, lsm6dso16is_all_sou
     return ret;
   }
 
-  val->ispu = status_ispu;
+  val->ispu = status_ispu & 0x3FFFU;
 
   return ret;
 }
@@ -1717,8 +1717,7 @@ int32_t lsm6dso16is_temperature_raw_get(const stmdev_ctx_t *ctx, int16_t *val)
     return ret;
   }
 
-  *val = (int16_t)buff[1];
-  *val = (*val * 256) + (int16_t)buff[0];
+  *val = (int16_t)(buff[0] | ((uint16_t)buff[1] << 8));
 
   return ret;
 }
@@ -1743,12 +1742,9 @@ int32_t lsm6dso16is_angular_rate_raw_get(const stmdev_ctx_t *ctx, int16_t *val)
     return ret;
   }
 
-  val[0] = (int16_t)buff[1];
-  val[0] = (val[0] * 256) + (int16_t)buff[0];
-  val[1] = (int16_t)buff[3];
-  val[1] = (val[1] * 256) + (int16_t)buff[2];
-  val[2] = (int16_t)buff[5];
-  val[2] = (val[2] * 256) + (int16_t)buff[4];
+  val[0] = (int16_t)(buff[0] | (uint16_t)buff[1] << 8);
+  val[1] = (int16_t)(buff[2] | (uint16_t)buff[3] << 8);
+  val[2] = (int16_t)(buff[4] | (uint16_t)buff[5] << 8);
 
   return ret;
 }
@@ -1773,12 +1769,9 @@ int32_t lsm6dso16is_acceleration_raw_get(const stmdev_ctx_t *ctx, int16_t *val)
     return ret;
   }
 
-  val[0] = (int16_t)buff[1];
-  val[0] = (val[0] * 256) + (int16_t)buff[0];
-  val[1] = (int16_t)buff[3];
-  val[1] = (val[1] * 256) + (int16_t)buff[2];
-  val[2] = (int16_t)buff[5];
-  val[2] = (val[2] * 256) + (int16_t)buff[4];
+  val[0] = (int16_t)(buff[0] | (uint16_t)buff[1] << 8);
+  val[1] = (int16_t)(buff[2] | (uint16_t)buff[3] << 8);
+  val[2] = (int16_t)(buff[4] | (uint16_t)buff[5] << 8);
 
   return ret;
 }
@@ -2187,7 +2180,7 @@ int32_t lsm6dso16is_sh_master_set(const stmdev_ctx_t *ctx, uint8_t val)
     goto exit;
   }
 
-  master_config.master_on = val;
+  master_config.master_on = val & 0x01U;
   ret = lsm6dso16is_write_reg(ctx, LSM6DSO16IS_MASTER_CONFIG, (uint8_t *)&master_config, 1);
 
 exit:
@@ -2242,7 +2235,7 @@ int32_t lsm6dso16is_sh_master_interface_pull_up_set(const stmdev_ctx_t *ctx, uin
     goto exit;
   }
 
-  master_config.shub_pu_en = val;
+  master_config.shub_pu_en = val & 0x01U;
   ret = lsm6dso16is_write_reg(ctx, LSM6DSO16IS_MASTER_CONFIG, (uint8_t *)&master_config, 1);
 
 exit:
@@ -2298,7 +2291,7 @@ int32_t lsm6dso16is_sh_pass_through_set(const stmdev_ctx_t *ctx, uint8_t val)
     goto exit;
   }
 
-  master_config.pass_through_mode = (uint8_t)val;
+  master_config.pass_through_mode = (uint8_t)val & 0x01U;
   ret = lsm6dso16is_write_reg(ctx, LSM6DSO16IS_MASTER_CONFIG, (uint8_t *)&master_config, 1);
 
 exit:
@@ -2491,7 +2484,7 @@ int32_t lsm6dso16is_sh_reset_set(const stmdev_ctx_t *ctx, uint8_t val)
     goto exit;
   }
 
-  master_config.rst_master_regs = val;
+  master_config.rst_master_regs = val & 0x01U;
   ret = lsm6dso16is_write_reg(ctx, LSM6DSO16IS_MASTER_CONFIG, (uint8_t *)&master_config, 1);
 
 exit:
@@ -2549,8 +2542,8 @@ int32_t lsm6dso16is_sh_cfg_write(const stmdev_ctx_t *ctx,
     goto exit;
   }
 
-  reg.slave0_add = (uint8_t)(val->slv0_add >> 1);
-  reg.rw_0 = 0;
+  reg.slave0_add = (uint8_t)(val->slv0_add >> 1) & 0x7FU;
+  reg.rw_0 = 0U;
   ret = lsm6dso16is_write_reg(ctx, LSM6DSO16IS_SLV0_ADD, (uint8_t *)&reg, 1);
   if (ret != 0)
   {
@@ -2594,7 +2587,7 @@ int32_t lsm6dso16is_sh_data_rate_set(const stmdev_ctx_t *ctx,
     goto exit;
   }
 
-  slv0_config.shub_odr = (uint8_t)val & 0x07U;
+  slv0_config.shub_odr = (uint8_t)val & 0x03U;
   ret = lsm6dso16is_write_reg(ctx, LSM6DSO16IS_SLV0_CONFIG, (uint8_t *)&slv0_config, 1);
 
 exit:
@@ -2675,31 +2668,31 @@ int32_t lsm6dso16is_sh_slv_cfg_read(const stmdev_ctx_t *ctx, uint8_t idx,
     goto exit;
   }
 
-  slv_add.slave0_add = (uint8_t)(val->slv_add >> 1);
-  slv_add.rw_0 = 1;
-  ret = lsm6dso16is_write_reg(ctx, LSM6DSO16IS_SLV0_ADD + idx * 3U,
+  slv_add.slave0_add = (uint8_t)(val->slv_add >> 1) & 0x7FU;
+  slv_add.rw_0 = 1U;
+  ret = lsm6dso16is_write_reg(ctx, LSM6DSO16IS_SLV0_ADD + (uint8_t)(idx * 3U),
                               (uint8_t *)&slv_add, 1);
   if (ret != 0)
   {
     goto exit;
   }
 
-  ret = lsm6dso16is_write_reg(ctx, LSM6DSO16IS_SLV0_SUBADD + idx * 3U,
+  ret = lsm6dso16is_write_reg(ctx, LSM6DSO16IS_SLV0_SUBADD + (uint8_t)(idx * 3U),
                               &(val->slv_subadd), 1);
   if (ret != 0)
   {
     goto exit;
   }
 
-  ret = lsm6dso16is_read_reg(ctx, LSM6DSO16IS_SLV0_CONFIG + idx * 3U,
+  ret = lsm6dso16is_read_reg(ctx, LSM6DSO16IS_SLV0_CONFIG + (uint8_t)(idx * 3U),
                              (uint8_t *)&slv_config, 1);
   if (ret != 0)
   {
     goto exit;
   }
 
-  slv_config.slave0_numop = val->slv_len;
-  ret = lsm6dso16is_write_reg(ctx, LSM6DSO16IS_SLV0_CONFIG + idx * 3U,
+  slv_config.slave0_numop = val->slv_len & 0x07U;
+  ret = lsm6dso16is_write_reg(ctx, LSM6DSO16IS_SLV0_CONFIG + (uint8_t)(idx * 3U),
                               (uint8_t *)&slv_config, 1);
 
 exit:
@@ -2754,7 +2747,7 @@ int32_t lsm6dso16is_ispu_reset_set(const stmdev_ctx_t *ctx, uint8_t val)
 
   if (ret == 0)
   {
-    func_cfg_access.sw_reset_ispu = val;
+    func_cfg_access.sw_reset_ispu = val & 0x01U;
     ret = lsm6dso16is_write_reg(ctx, LSM6DSO16IS_FUNC_CFG_ACCESS, (uint8_t *)&func_cfg_access, 1);
   }
 
@@ -2797,7 +2790,7 @@ int32_t lsm6dso16is_ispu_clock_set(const stmdev_ctx_t *ctx,
 
   if (ret == 0)
   {
-    ctrl10_c.ispu_clk_sel = (uint8_t)val;
+    ctrl10_c.ispu_clk_sel = (uint8_t)val & 0x01U;
     ret += lsm6dso16is_write_reg(ctx, LSM6DSO16IS_CTRL10_C, (uint8_t *)&ctrl10_c, 1);
   }
 
@@ -3026,9 +3019,9 @@ int32_t lsm6dso16is_ia_ispu_get(const stmdev_ctx_t *ctx, uint32_t *val)
   }
 
   *val = (uint32_t)buff[3];
-  *val = (*val * 256U) + (uint32_t)buff[2];
-  *val = (*val * 256U) + (uint32_t)buff[1];
-  *val = (*val * 256U) + (uint32_t)buff[0];
+  *val = (*val << 8) | (uint32_t)buff[2];
+  *val = (*val << 8) | (uint32_t)buff[1];
+  *val = (*val << 8) | (uint32_t)buff[0];
 
   return ret;
 }
@@ -3111,8 +3104,8 @@ int32_t lsm6dso16is_ispu_boot_set(const stmdev_ctx_t *ctx,
     goto exit;
   }
 
-  ispu_config.ispu_rst_n = (uint8_t)val;
-  ispu_config.clk_dis = (uint8_t)val;
+  ispu_config.ispu_rst_n = (uint8_t)val & 0x01U;
+  ispu_config.clk_dis = (uint8_t)val & 0x01U;
   ret += lsm6dso16is_write_reg(ctx, LSM6DSO16IS_ISPU_CONFIG, (uint8_t *)&ispu_config, 1);
 
 exit:
@@ -3291,9 +3284,9 @@ int32_t lsm6dso16is_ispu_write_memory(const stmdev_ctx_t *ctx,
 {
   lsm6dso16is_ispu_mem_sel_t ispu_mem_sel = {0};
   lsm6dso16is_ispu_config_t ispu_cfg = {0};
-  uint8_t clk_dis = 0;
+  uint8_t clk_dis = 0U;
   int32_t ret = 0;
-  uint16_t i = 0;
+  uint16_t i = 0U;
 
   ret = lsm6dso16is_mem_bank_set(ctx, LSM6DSO16IS_ISPU_MEM_BANK);
   if (ret == 0)
@@ -3305,7 +3298,7 @@ int32_t lsm6dso16is_ispu_write_memory(const stmdev_ctx_t *ctx,
       goto exit;
     }
     clk_dis = ispu_cfg.clk_dis;
-    ispu_cfg.clk_dis = 1;
+    ispu_cfg.clk_dis = 1U;
     ret = lsm6dso16is_write_reg(ctx, LSM6DSO16IS_ISPU_CONFIG, (uint8_t *)&ispu_cfg, 1);
     if (ret != 0)
     {
@@ -3313,8 +3306,8 @@ int32_t lsm6dso16is_ispu_write_memory(const stmdev_ctx_t *ctx,
     }
 
     /* select memory to be written */
-    ispu_mem_sel.read_mem_en = 0;
-    ispu_mem_sel.mem_sel = (uint8_t)mem_sel;
+    ispu_mem_sel.read_mem_en = 0U;
+    ispu_mem_sel.mem_sel = (uint8_t)mem_sel & 0x01U;
     ret = lsm6dso16is_write_reg(ctx, LSM6DSO16IS_ISPU_MEM_SEL, (uint8_t *)&ispu_mem_sel, 1);
     if (ret != 0)
     {
@@ -3363,7 +3356,7 @@ int32_t lsm6dso16is_ispu_write_memory(const stmdev_ctx_t *ctx,
     }
 
     /* set ISPU clock back to previous value */
-    ispu_cfg.clk_dis = clk_dis;
+    ispu_cfg.clk_dis = clk_dis & 0x01U;
     ret += lsm6dso16is_write_reg(ctx, LSM6DSO16IS_ISPU_CONFIG, (uint8_t *)&ispu_cfg, 1);
     if (ret != 0)
     {
@@ -3394,9 +3387,9 @@ int32_t lsm6dso16is_ispu_read_memory(const stmdev_ctx_t *ctx,
 {
   lsm6dso16is_ispu_mem_sel_t ispu_mem_sel = {0};
   lsm6dso16is_ispu_config_t ispu_cfg = {0};
-  uint8_t clk_dis = 0;
+  uint8_t clk_dis = 0U;
   int32_t ret = 0;
-  uint8_t dummy = 0;
+  uint8_t dummy = 0U;
 
   ret = lsm6dso16is_mem_bank_set(ctx, LSM6DSO16IS_ISPU_MEM_BANK);
   if (ret == 0)
@@ -3408,7 +3401,7 @@ int32_t lsm6dso16is_ispu_read_memory(const stmdev_ctx_t *ctx,
       goto exit;
     }
     clk_dis = ispu_cfg.clk_dis;
-    ispu_cfg.clk_dis = 1;
+    ispu_cfg.clk_dis = 1U;
     ret += lsm6dso16is_write_reg(ctx, LSM6DSO16IS_ISPU_CONFIG, (uint8_t *)&ispu_cfg, 1);
     if (ret != 0)
     {
@@ -3416,8 +3409,8 @@ int32_t lsm6dso16is_ispu_read_memory(const stmdev_ctx_t *ctx,
     }
 
     /* select memory to be read */
-    ispu_mem_sel.read_mem_en = 1;
-    ispu_mem_sel.mem_sel = (uint8_t)mem_sel;
+    ispu_mem_sel.read_mem_en = 1U;
+    ispu_mem_sel.mem_sel = (uint8_t)mem_sel & 0x01U;
     ret += lsm6dso16is_write_reg(ctx, LSM6DSO16IS_ISPU_MEM_SEL, (uint8_t *)&ispu_mem_sel, 1);
     if (ret != 0)
     {
@@ -3444,7 +3437,7 @@ int32_t lsm6dso16is_ispu_read_memory(const stmdev_ctx_t *ctx,
     }
 
     /* set ISPU clock back to previous value */
-    ispu_cfg.clk_dis = clk_dis;
+    ispu_cfg.clk_dis = clk_dis & 0x01U;
     ret += lsm6dso16is_write_reg(ctx, LSM6DSO16IS_ISPU_CONFIG, (uint8_t *)&ispu_cfg, 1);
   }
 
@@ -3504,8 +3497,7 @@ int32_t lsm6dso16is_ispu_read_flags(const stmdev_ctx_t *ctx, uint16_t *data)
   ret += lsm6dso16is_read_reg(ctx, LSM6DSO16IS_ISPU_S2IF_FLAG_L, buff, 2);
   if (ret == 0)
   {
-    data[0] = (uint16_t)buff[1];
-    data[0] = (data[0] * 256U) + (uint16_t)buff[0];
+    data[0] = (uint16_t)(buff[0] | ((uint16_t)buff[1] << 8));
   }
 
   ret += lsm6dso16is_mem_bank_set(ctx, LSM6DSO16IS_MAIN_MEM_BANK);
@@ -3585,9 +3577,9 @@ int32_t lsm6dso16is_ispu_int1_ctrl_get(const stmdev_ctx_t *ctx, uint32_t *val)
     if (ret == 0)
     {
       *val = (uint32_t)buff[3];
-      *val = (*val * 256U) + (uint32_t)buff[2];
-      *val = (*val * 256U) + (uint32_t)buff[1];
-      *val = (*val * 256U) + (uint32_t)buff[0];
+      *val = (*val << 8) | (uint32_t)buff[2];
+      *val = (*val << 8) | (uint32_t)buff[1];
+      *val = (*val << 8) | (uint32_t)buff[0];
     }
   }
 
@@ -3660,9 +3652,9 @@ int32_t lsm6dso16is_ispu_int2_ctrl_get(const stmdev_ctx_t *ctx, uint32_t *val)
     if (ret == 0)
     {
       *val = (uint32_t)buff[3];
-      *val = (*val * 256U) + (uint32_t)buff[2];
-      *val = (*val * 256U) + (uint32_t)buff[1];
-      *val = (*val * 256U) + (uint32_t)buff[0];
+      *val = (*val << 8) | (uint32_t)buff[2];
+      *val = (*val << 8) | (uint32_t)buff[1];
+      *val = (*val << 8) | (uint32_t)buff[0];
     }
   }
 
@@ -3735,9 +3727,9 @@ int32_t lsm6dso16is_ispu_int_status_get(const stmdev_ctx_t *ctx, uint32_t *val)
     if (ret == 0)
     {
       *val = (uint32_t)buff[3];
-      *val = (*val * 256U) + (uint32_t)buff[2];
-      *val = (*val * 256U) + (uint32_t)buff[1];
-      *val = (*val * 256U) + (uint32_t)buff[0];
+      *val = (*val << 8) | (uint32_t)buff[2];
+      *val = (*val << 8) | (uint32_t)buff[1];
+      *val = (*val << 8) | (uint32_t)buff[0];
     }
   }
 
@@ -3768,9 +3760,9 @@ int32_t lsm6dso16is_ispu_algo_get(const stmdev_ctx_t *ctx, uint32_t *val)
     if (ret == 0)
     {
       *val = (uint32_t)buff[3];
-      *val = (*val * 256U) + (uint32_t)buff[2];
-      *val = (*val * 256U) + (uint32_t)buff[1];
-      *val = (*val * 256U) + (uint32_t)buff[0];
+      *val = (*val << 8) | (uint32_t)buff[2];
+      *val = (*val << 8) | (uint32_t)buff[1];
+      *val = (*val << 8) | (uint32_t)buff[0];
     }
   }
 
