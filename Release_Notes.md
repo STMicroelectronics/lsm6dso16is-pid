@@ -30,7 +30,19 @@ This directory contains the LSM6DSO16IS component drivers.
 # Update history
 
 ::: {.collapse}
-<input type="checkbox" id="collapse-section11" checked aria-hidden="true">
+<input type="checkbox" id="collapse-section12" checked aria-hidden="true">
+<label for="collapse-section12" aria-hidden="true">V3.2.4 / 08-Oct-2026</label>
+<div>
+
+## Main changes
+
+- Fix gcc and clang compilation warnings
+
+##
+
+</div>
+
+<input type="checkbox" id="collapse-section11" aria-hidden="true">
 <label for="collapse-section11" aria-hidden="true">V3.2.3 / 30-Mar-2026</label>
 <div>
 
